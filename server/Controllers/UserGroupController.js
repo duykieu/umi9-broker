@@ -1,39 +1,38 @@
 const { catchAsync } = require("../Helpers/utils");
 const AppError = require("../Libs/AppError");
-const Category = require("../Models/Category");
-const pagination = require("../Helpers/pagination");
 const UserGroup = require("../Models/UserGroup");
+const pagination = require("../Helpers/pagination");
 
 exports.get = catchAsync(async (req, res, next) => {
-    const categories = await Category.find({ ...req.query });
+    const userGroups = await UserGroup.find({ ...req.query });
 
     return res.json({
         success: true,
         entries: {
-            categories,
+            userGroups,
         },
     });
 });
 
 exports.store = catchAsync(async (req, res, next) => {
     const data = req.body;
-    const category = await Category.create(data);
+    const userGroup = await UserGroup.create(data);
     return res.json({
         success: true,
         entries: {
-            category,
+            userGroup,
         },
     });
 });
 
 exports.show = catchAsync(async (req, res, next) => {
     const { id } = req.params;
-    const category = await Category.findById(id);
+    const userGroup = await UserGroup.findById(id);
 
     return res.json({
         success: true,
         entries: {
-            category,
+            userGroup,
         },
     });
 });
@@ -41,24 +40,24 @@ exports.show = catchAsync(async (req, res, next) => {
 exports.update = catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const data = req.body;
-    const category = await Category.findByIdAndUpdate(id, data, { new: true });
+    const userGroup = await UserGroup.findByIdAndUpdate(id, data, { new: true });
 
     return res.json({
         success: true,
         entries: {
-            category,
+            userGroup,
         },
     });
 });
 
 exports.destroy = catchAsync(async (req, res, next) => {
     const { id } = req.params;
-    const category = await Category.findByIdAndDelete(id);
+    const userGroup = await UserGroup.findByIdAndDelete(id);
 
     return res.json({
         success: true,
         entries: {
-            category,
+            userGroup,
         },
     });
 });

@@ -31,11 +31,11 @@ const LayoutComponent = ({ children, addItemLink, pageTitle }) => {
       >
         <div className="sidebar__content">
           <div className="sidebar__content--logo">
-            {sidebarOpen && (
+            {/* {sidebarOpen && (
               <Link to="/">
                 <img src={Logo} />
               </Link>
-            )}
+            )} */}
 
             <button onClick={toggleSidebar}>
               {sidebarOpen ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}

@@ -7,13 +7,25 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    displayName: {
+        type: String,
+    },
     username: {
         type: String,
         unique: true,
         lowercase: true,
         required: true,
     },
-    phoneNumber: {
+    mainPhoneNumber: {
+        type: String,
+        unique: true,
+        lowercase: true,
+        required: true,
+        validate: {
+            validator: value => /((09|03|07|08|05)+([0-9]{8})\b)/g.test(value),
+        },
+    },
+    subPhoneNumber: {
         type: String,
         unique: true,
         lowercase: true,
@@ -46,12 +58,15 @@ const UserSchema = new mongoose.Schema({
             message: "Passwords are not the same!",
         },
     },
-    userType: {
+    userGroup: {
         type: String,
         required: true,
-        default: "staff",
+        default: 7,
     },
     address: String,
+    idNumber: String,
+    idIssueDate: Date,
+    idIssuePlace: String,
 });
 
 UserSchema.pre("save", async function (next) {

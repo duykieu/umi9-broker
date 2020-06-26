@@ -8,6 +8,15 @@ const CategorySchema = mongoose.Schema({
     slug: {
         type: String,
         required: true,
+        unique: true,
+    },
+    model: {
+        type: String,
+        required: true,
+    },
+    orderNumber: {
+        type: Number,
+        default: 0,
     },
 });
 

@@ -134,6 +134,8 @@ table {
 @import "../node_modules/@syncfusion/ej2-inputs/styles/fabric.css";
 @import "../node_modules/@syncfusion/ej2-react-navigations/styles/fabric.css";
 @import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/fabric.css";
+@import "../node_modules/@syncfusion/ej2-react-notifications/styles/fabric.css";
+@import "../node_modules/antd/dist/antd.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap-grid.css";
 
 html {
@@ -155,7 +157,7 @@ html {
 }
 
 .page__form {
-  max-width: 90rem;
+  max-width: 110rem;
   padding-bottom: 10rem;
   margin-bottom: 5rem;
 }
