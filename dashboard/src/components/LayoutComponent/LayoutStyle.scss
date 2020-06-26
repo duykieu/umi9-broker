@@ -1,16 +1,21 @@
 .sidebar__content {
-  width: 28rem;
+  width: 25rem;
   background-color: #0078d6;
   height: 100vh;
 
-  button {
-    color: #fff;
-    font-size: 2rem;
-    background-color: transparent;
-    outline: none;
-    border: 0.1rem solid #fff;
-    cursor: pointer;
-    margin: 1rem;
+  &--logo {
+    display: flex;
+    padding: 2rem 1rem;
+    justify-content: space-between;
+
+    button {
+      color: #fff;
+      font-size: 2rem;
+      background-color: transparent;
+      outline: none;
+      border: none;
+      cursor: pointer;
+    }
   }
 }
 
@@ -24,7 +29,7 @@
   font-size: 1.4rem;
   color: rgb(96, 94, 92);
   .page__title {
-    font-size: 3.2rem;
+    font-size: 2.6rem;
     margin-bottom: 2rem;
     border-bottom: 0.1rem solid #dadada;
     padding-bottom: 0.7rem;

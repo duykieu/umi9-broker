@@ -133,6 +133,7 @@ table {
 @import "../node_modules/@syncfusion/ej2-buttons/styles/fabric.css";
 @import "../node_modules/@syncfusion/ej2-inputs/styles/fabric.css";
 @import "../node_modules/@syncfusion/ej2-react-navigations/styles/fabric.css";
+@import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/fabric.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap-grid.css";
 
 html {
@@ -155,4 +156,12 @@ html {
 
 .page__form {
   max-width: 90rem;
+  padding-bottom: 10rem;
+  margin-bottom: 5rem;
+}
+
+.divider {
+  height: 1px;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 3rem;
 }

@@ -1,0 +1,10 @@
+.buttons {
+  button {
+    margin-right: 1.5rem;
+  }
+  @media (max-width: 576px) {
+    button {
+      width: 100%;
+    }
+  }
+}

@@ -1,13 +1,17 @@
 .main__menu {
   li {
     a {
-      padding: 0.8rem 1.5rem;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1rem;
       display: block;
       text-decoration: none;
       font-size: 1.6rem;
       color: #ccc;
       &.active {
         color: #fff;
+      }
+      span {
+        margin-left: 1rem;
       }
     }
   }
