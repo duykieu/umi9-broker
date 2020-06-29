@@ -27,6 +27,8 @@ import {
 import GeoReducer from "../../reducers/GeoReducer";
 import { getCategoryAction } from "../../actions/CategoryAction";
 import { getPriceModelAction } from "../../actions/PriceModelAction";
+import UserSelectionComponent from "../../components/UserSelectionComponent/UserSelectionComponent";
+import ImageComponent from "../../components/ImageComponent/ImageComponent";
 
 const PropertyAddPage = ({
   GeoReducer,
@@ -227,14 +229,10 @@ const PropertyAddPage = ({
         <div className="divider" />
         <div className="row">
           <FieldComponent label="Liên hệ 1">
-            <ComboBoxComponent
-              allowFiltering
-              dataSource={CategoryReducer.data}
-              noRecordsTemplate={"<button>Hello</button>"}
-            />
+            <UserSelectionComponent />
           </FieldComponent>
           <FieldComponent label="Liên hệ 2">
-            <TextBoxComponent />
+            <UserSelectionComponent />
           </FieldComponent>
           <FieldComponent size={2} label="Thông tin hoa hồng">
             <TextBoxComponent />
@@ -249,16 +247,7 @@ const PropertyAddPage = ({
         <div className="divider"></div>
         <div className="form__group">
           <label>Chọn hình ảnh</label>
-          <UploaderComponent
-            buttons={{
-              browse: "Chọn file",
-              clear: "Xoá tất cả",
-              upload: "Tải lên",
-            }}
-            asyncSettings={state.asyncSettings}
-            maxFileSize={10 * 1024 * 1024} //in byte
-            allowedExtensions=".jpg,.jpeg,.png,.gif"
-          />
+          <ImageComponent />
         </div>
         <div className="buttons">
           <ButtonComponent isPrimary content="Lưu" />

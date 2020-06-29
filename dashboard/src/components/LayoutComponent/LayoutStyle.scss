@@ -1,3 +1,8 @@
+.main-layout {
+  width: 100vw;
+  overflow: hidden;
+}
+
 .sidebar__content {
   width: 25rem;
   background-color: #0078d6;
@@ -24,15 +29,55 @@
 }
 
 .main__content {
-  height: 100vh;
-  padding: 1.5rem 3rem;
+  height: calc(100vh - 6.5rem);
+  padding: 0 3rem;
+  width: calc(100% - 25rem);
   font-size: 1.4rem;
   color: rgb(96, 94, 92);
+  max-width: 100%;
+  overflow: hidden;
+
+  .content__wrapper {
+    max-width: 100%;
+    overflow: auto;
+  }
+
+  .top__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 6.5rem;
+    width: 100%;
+
+    .top__left {
+      display: flex;
+      min-width: 80%;
+      button {
+        background-color: transparent;
+        color: rgb(96, 94, 92);
+        border-color: #e2e8f0;
+        border-width: 0.1rem;
+        border-style: solid;
+        border-radius: 0.3rem;
+        margin-right: 1rem;
+        outline: none;
+        &:active,
+        &:visited {
+          outline: none;
+        }
+      }
+    }
+  }
+
   .page__title {
     font-size: 2.6rem;
-    margin-bottom: 2rem;
-    border-bottom: 0.1rem solid #dadada;
-    padding-bottom: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main__content {
+    padding: 0 1.5rem;
+    width: 100%;
   }
 }
 
@@ -50,5 +95,23 @@
     font-size: 2.5rem;
     background-color: #0078d6;
     border-radius: 50%;
+  }
+  button {
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    font-size: 2.5rem;
+    background-color: #0078d6;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+  }
+
+  button:active,
+  button:visited {
+    outline: none;
   }
 }

@@ -5,6 +5,7 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import PropertyPage from "./pages/PropertyPage/PropertyPage";
 import PropertyAddPage from "./pages/PropertyAddPage/PropertyAddPage";
 import AdsPage from "./pages/AdsPage/AdsPage";
+import UserPage from "./pages/UserPage/UserPage";
 
 const MainRouter = () => {
   return (
@@ -15,6 +16,7 @@ const MainRouter = () => {
         <Route path="/property/add" component={PropertyAddPage} />
         <Route path="/ads" component={AdsPage} />
         <Route path="/ads/add" component={AdsPage} />
+        <Route path="/user" component={UserPage} />
       </Switch>
     </HashRouter>
   );

@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
         lowercase: true,
         required: true,
     },
-    mainPhoneNumber: {
+    phoneNumber: {
         type: String,
         unique: true,
         lowercase: true,
@@ -29,7 +29,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         unique: true,
         lowercase: true,
-        required: true,
         validate: {
             validator: value => /((09|03|07|08|05)+([0-9]{8})\b)/g.test(value),
         },
@@ -44,7 +43,6 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Please provide a password"],
-        minlength: 8,
         select: false,
     },
     passwordConfirm: {
@@ -57,16 +55,29 @@ const UserSchema = new mongoose.Schema({
             },
             message: "Passwords are not the same!",
         },
+        select: false,
     },
     userGroup: {
         type: String,
         required: true,
-        default: 7,
+        default: "member",
     },
+    permission: [String],
     address: String,
     idNumber: String,
-    idIssueDate: Date,
+    idIssueDate: {
+        type: Date,
+        default: new Date("01/01/1980"),
+    },
     idIssuePlace: String,
+    createdAt: {
+        type: Date,
+        default: new Date(),
+    },
+    updatedAt: {
+        type: Date,
+        default: new Date(),
+    },
 });
 
 UserSchema.pre("save", async function (next) {

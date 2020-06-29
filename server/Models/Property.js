@@ -28,14 +28,7 @@ const PropertySchema = new mongoose.Schema({
     numOfBeds: Number,
     description: String,
     tags: String,
-    images: [
-        {
-            original: String,
-            small: String,
-            medium: String,
-            large: String,
-        },
-    ],
+    images: [String],
 
     //User
     createdUser: {

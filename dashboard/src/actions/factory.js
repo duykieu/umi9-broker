@@ -13,7 +13,8 @@ export default ({
   return runService(sendData)
     .then(({ data: { success, message, entries } }) => {
       if (success) {
-        !noSuccessNotification && dispatch(setSuccessNotification(message));
+        !noSuccessNotification &&
+          dispatch(setSuccessNotification(message || "Cập nhật thành công"));
         if (entries && actionType && entries[returnDataKey])
           dispatch({ type: actionType, payload: entries[returnDataKey] });
       } else {

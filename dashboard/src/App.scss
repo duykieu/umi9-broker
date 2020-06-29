@@ -135,6 +135,11 @@ table {
 @import "../node_modules/@syncfusion/ej2-react-navigations/styles/fabric.css";
 @import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/fabric.css";
 @import "../node_modules/@syncfusion/ej2-react-notifications/styles/fabric.css";
+@import "../node_modules/@syncfusion/ej2-react-popups/styles/fabric.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/fabric.css";
+@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/fabric.css";
+@import "../node_modules/@syncfusion/ej2-react-grids/styles/fabric.css";
+@import "../node_modules/@syncfusion/ej2-react-calendars/styles/fabric.css";
 @import "../node_modules/antd/dist/antd.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap-grid.css";
 
@@ -166,4 +171,20 @@ html {
   height: 1px;
   border-bottom: 1px solid #dddddd;
   margin-bottom: 3rem;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.grid__container {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.switch__container {
+  display: flex;
+  label {
+    margin-left: 1.5rem;
+  }
 }

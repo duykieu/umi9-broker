@@ -6,22 +6,31 @@ const pagination = require("../Helpers/pagination");
 exports.get = catchAsync(async (req, res, next) => {
     let { page, perPage, ...rest } = req.query;
 
-    page = Math.abs(page) || 1; //2
-    perPage = Math.abs(perPage) || 10; //10
-    const skip = Math.abs(page) * Math.abs(perPage) - 10 || 0; //10
+    if (page && perPage) {
+        page = Math.abs(page) || 1; //2
+        perPage = Math.abs(perPage) || 15; //10
+        const skip = Math.abs(page) * Math.abs(perPage) - 15 || 0; //10
 
-    const total = await User.count({ ...rest });
-    const users = await User.find({ ...rest })
-        .skip(skip)
-        .limit(perPage);
-
-    return res.json({
-        success: true,
-        entries: {
-            meta: pagination(page, perPage, total),
-            users,
-        },
-    });
+        const total = await User.count({ ...rest });
+        const users = await User.find({ ...rest })
+            .skip(skip)
+            .limit(perPage);
+        return res.json({
+            success: true,
+            entries: {
+                meta: pagination(page, perPage, total),
+                users,
+            },
+        });
+    } else {
+        const users = await User.find({});
+        return res.json({
+            success: true,
+            entries: {
+                users,
+            },
+        });
+    }
 });
 
 exports.store = catchAsync(async (req, res, next) => {

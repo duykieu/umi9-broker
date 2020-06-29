@@ -12,7 +12,12 @@ import "./LayoutStyle.scss";
 import MenuComponent from "../MenuComponent/MenuComponent";
 import { NavLink, Link } from "react-router-dom";
 
-const LayoutComponent = ({ children, addItemLink, pageTitle }) => {
+const LayoutComponent = ({
+  children,
+  addItemLink,
+  addItemButton,
+  pageTitle,
+}) => {
   let sideBarRef = React.createRef();
 
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
@@ -24,8 +29,7 @@ const LayoutComponent = ({ children, addItemLink, pageTitle }) => {
       <SidebarComponent
         isOpen={sidebarOpen}
         enablePersistence
-        enableDock
-        dockSize="55"
+        enableGestures={false}
         type="Slide"
         close={() => setSidebarOpen(false)}
       >
@@ -36,16 +40,22 @@ const LayoutComponent = ({ children, addItemLink, pageTitle }) => {
                 <img src={Logo} />
               </Link>
             )} */}
-
-            <button onClick={toggleSidebar}>
-              {sidebarOpen ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
-            </button>
           </div>
           <MenuComponent sidebarOpen={sidebarOpen} />
         </div>
       </SidebarComponent>
+
       <div className="main__content">
-        <h1 className="page__title">{pageTitle}</h1>
+        <div className="top__bar">
+          <div className="top__left">
+            <button onClick={toggleSidebar}>
+              {sidebarOpen ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+            </button>{" "}
+            <h1 className="page__title">{pageTitle}</h1>
+          </div>
+          <div className="top__right"></div>
+        </div>
+
         <div className="content__wrapper">{children}</div>
       </div>
       {addItemLink && (
@@ -53,6 +63,13 @@ const LayoutComponent = ({ children, addItemLink, pageTitle }) => {
           <NavLink to={addItemLink} exact>
             <PlusOutlined />
           </NavLink>
+        </div>
+      )}
+      {addItemButton && (
+        <div className="loading__button">
+          <button className="button" onClick={() => addItemButton()}>
+            <PlusOutlined />
+          </button>
         </div>
       )}
     </div>

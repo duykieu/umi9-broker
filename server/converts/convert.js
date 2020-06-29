@@ -1,28 +1,11 @@
 require("dotenv").config();
 const mysql = require("mysql");
 const mongoose = require("mongoose");
-const Category = require("./Models/Category");
-const PriceModel = require("./Models/PriceModel");
-const UserGroup = require("./Models/UserGroup");
-const User = require("./Models/User");
-
-const database = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
-mongoose
-    .connect(database, {
-        useNewUrlParser: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-    })
-    .then(() => console.log("DB connected successfully".cyan))
-    .catch(console.log);
-
-const mysqlConn = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Kieu@123123",
-    database: "matbangsaigon",
-});
+const Category = require("../Models/Category");
+const PriceModel = require("../Models/PriceModel");
+const UserGroup = require("../Models/UserGroup");
+const User = require("../Models/User");
+const { mongoConn, mysqlConn } = require("./db");
 
 const getPriceModelCode = id => {
     switch (id) {
@@ -101,32 +84,6 @@ const convert = () => {
                     });
                     UserGroup.insertMany(arrayToInsert, (error, docs) => {
                         if (!error) console.log(`Converted ${docs.length} user groups`);
-                    });
-                }
-            });
-        }
-    });
-
-    //Users
-    mysqlConn.query("Select * from users", (error, docs) => {
-        if (!error) {
-            User.count({}, (error, count) => {
-                if (!error && !count) {
-                    const arrayToInsert = [];
-                    docs.forEach(doc => {
-                        arrayToInsert.push({
-                            fullName: doc.name,
-                            displayName: doc.display_name,
-                            username: doc.phone_number,
-                            email: doc.email,
-                            password: doc.password,
-                            passwordConfirm: doc.password,
-                            mainPhoneNumber: doc.phone_number,
-                            subPhoneNumber: doc.phone_number_2,
-                        });
-                    });
-                    User.insertMany(arrayToInsert, (error, docs) => {
-                        if (!error) console.log(`Converted ${docs.length} users`);
                     });
                 }
             });

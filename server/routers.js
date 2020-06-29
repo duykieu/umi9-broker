@@ -6,6 +6,7 @@ const PropertyController = require("./Controllers/PropertyController");
 const CategoryController = require("./Controllers/CategoryController");
 const PriceModelController = require("./Controllers/PriceModelController");
 const UserGroupController = require("./Controllers/UserGroupController");
+const ImageController = require("./Controllers/ImageController");
 
 router.route("/user").get(UserController.get).post(UserController.store);
 router
@@ -45,6 +46,14 @@ router
     .get(UserGroupController.show)
     .patch(UserGroupController.update)
     .delete(UserGroupController.destroy);
+
+//Image
+router.route("/image/upload").post(ImageController.upload);
+// router
+//     .route("/image/:id")
+//     .get(ImageController.show)
+//     .patch(ImageController.update)
+//     .delete(ImageController.destroy);
 
 //Return
 module.exports = router;

@@ -1,7 +1,7 @@
 import factory from "./factory";
 import CategoryService from "../services/CategoryService";
 
-export const CATEGORY_REPLACE_NODE = "ACCOUNT_REPLACE_NODE";
+export const CATEGORY_REPLACE_NODE = "CATEGORY_REPLACE_NODE";
 export const CATEGORY_ADD_NODE = "CATEGORY_ADD_NODE";
 export const CATEGORY_REMOVE_NODE = "CATEGORY_REMOVE_NODE";
 export const CATEGORY_SET_DATA = "CATEGORY_SET_DATA";
