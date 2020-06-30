@@ -1,16 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
+import { HashRouter } from "react-router-dom";
 import axios from "axios";
 import "./App.scss";
-import MainRouter from "./MainRouter";
+import MainRouter from "./routes/MainRouter";
 import NullGeoComponent from "./components/NullGeoComponent";
 import NullNotificationComponent from "./components/NullNotification";
 
-function App({ notification, dispatch }) {
+function App({ notification, dispatch, AuthReducer }) {
   axios.interceptors.request.use(
     function (config) {
       // Do something before request is sent
       config.baseURL = process.env.REACT_APP_MAIN_API;
+      config.headers.Authorization =
+        AuthReducer.token && `Bearer ${AuthReducer.token}`;
       return config;
     },
     function (error) {
@@ -21,16 +24,18 @@ function App({ notification, dispatch }) {
 
   return (
     <React.Fragment>
-      <MainRouter />
+      <HashRouter>
+        <MainRouter />
+      </HashRouter>
       <NullGeoComponent />
       <NullNotificationComponent />
-      App
     </React.Fragment>
   );
 }
 
-const mapStateToProps = ({ NotificationReducer }) => ({
+const mapStateToProps = ({ NotificationReducer, AuthReducer }) => ({
   notification: NotificationReducer,
+  AuthReducer,
 });
 
 export default connect(mapStateToProps)(App);

@@ -22,7 +22,7 @@ const FieldComponent = ({
       cellClass = "col-sm-6";
       break;
     case 1:
-      cellClass = "col";
+      cellClass = "col-12";
       break;
     default:
       cellClass = "col-sm-6 col-md-4 col-lg-3";

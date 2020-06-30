@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const PropertySchema = new mongoose.Schema({
+    category: {
+        type: String,
+        required: true,
+    },
     address: {
         type: String,
         required: true,
@@ -44,12 +48,13 @@ const PropertySchema = new mongoose.Schema({
     infoFrom: {
         //The host or partner or staff
         type: mongoose.Types.ObjectId,
-        ref: "Host",
+        ref: "User",
     },
     history: String,
     status: {
         type: String,
         required: true,
+        enum: ["ok", "hide", "deleted"],
         default: "ok",
     },
 });

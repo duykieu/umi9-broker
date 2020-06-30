@@ -7,7 +7,11 @@ const CategoryController = require("./Controllers/CategoryController");
 const PriceModelController = require("./Controllers/PriceModelController");
 const UserGroupController = require("./Controllers/UserGroupController");
 const ImageController = require("./Controllers/ImageController");
+const AuthController = require("./Controllers/AuthController");
 
+router.route("/login").post(AuthController.login);
+
+router.use(AuthController.protect);
 router.route("/user").get(UserController.get).post(UserController.store);
 router
     .route("/user/:id")

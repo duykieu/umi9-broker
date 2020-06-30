@@ -164,7 +164,10 @@ html {
 .page__form {
   max-width: 110rem;
   padding-bottom: 10rem;
-  margin-bottom: 5rem;
+
+  .buttons button {
+    margin-right: 1rem;
+  }
 }
 
 .divider {
@@ -178,7 +181,7 @@ html {
 }
 
 .grid__container {
-  max-width: 100%;
+  width: 100%;
   overflow: auto;
 }
 
@@ -187,4 +190,14 @@ html {
   label {
     margin-left: 1.5rem;
   }
+}
+
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in;
 }

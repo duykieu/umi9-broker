@@ -26,7 +26,6 @@ const convertUserGroup = groupId => {
 
 //Users
 mysqlConn.query("Select * from users", (error, docs) => {
-    console.log({ docs: docs.length });
     if (!error) {
         User.countDocuments({}, (error, count) => {
             if (!error && !count) {

@@ -92,38 +92,39 @@ const UserPage = ({ UserReducer, dispatch }) => {
   return (
     <React.Fragment>
       <LayoutComponent addItemButton={openForm} pageTitle="Quản lý người dùng">
-        <GridComponent
-          commandClick={commandClick}
-          allowSorting
-          allowFiltering
-          allowPaging
-          width="1000"
-          dataSource={UserReducer.data}
-          toolbar={[{ text: "Add", align: "Right" }]}
-          toolbarClick={toolbarClickHandler}
-          pageSettings={{ pageSize: 15 }}
-        >
-          <ColumnsDirective>
-            <ColumnDirective headerText="Họ tên" field="fullName" />
-            <ColumnDirective headerText="Tên hiển thị" field="displayName" />
-            <ColumnDirective headerText="Email" field="email" />
-            <ColumnDirective headerText="Tên truy cập" field="username" />
-            <ColumnDirective headerText="Số điện thoại" field="phoneNumber" />
-            <ColumnDirective headerText="Số phụ" field="subPhoneNumber" />
-            <ColumnDirective
-              commands={[
-                {
-                  buttonOption: {
-                    content: "Sửa",
+        <div className="grid__container">
+          <GridComponent
+            commandClick={commandClick}
+            allowSorting
+            allowFiltering
+            allowPaging
+            width={1366 - 250}
+            dataSource={UserReducer.data}
+            toolbar={[{ text: "Add", align: "Right" }]}
+            toolbarClick={toolbarClickHandler}
+            pageSettings={{ pageSize: 15 }}
+          >
+            <ColumnsDirective>
+              <ColumnDirective headerText="Họ tên" field="fullName" />
+              <ColumnDirective headerText="Tên hiển thị" field="displayName" />
+              <ColumnDirective width={250} headerText="Email" field="email" />
+              <ColumnDirective headerText="Tên truy cập" field="username" />
+              <ColumnDirective headerText="Số điện thoại" field="phoneNumber" />
+              <ColumnDirective
+                commands={[
+                  {
+                    buttonOption: {
+                      content: "Sửa",
+                    },
+                    type: "edit",
                   },
-                  type: "edit",
-                },
-                { buttonOption: { content: "Xoá" }, type: "delete" },
-              ]}
-            />
-          </ColumnsDirective>
-          <Inject services={[Page, Sort, Filter, CommandColumn]} />
-        </GridComponent>
+                  { buttonOption: { content: "Xoá" }, type: "delete" },
+                ]}
+              />
+            </ColumnsDirective>
+            <Inject services={[Page, Sort, Filter, CommandColumn]} />
+          </GridComponent>
+        </div>
       </LayoutComponent>
       <UserFormComponent
         model="user"

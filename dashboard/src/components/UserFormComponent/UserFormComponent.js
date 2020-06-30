@@ -30,7 +30,7 @@ const UserFormComponent = ({
   });
 
   React.useEffect(() => {
-    if (!userData._id) {
+    if (userData && !userData._id) {
       return setState((state) => ({
         ...state,
         editPassword: true,

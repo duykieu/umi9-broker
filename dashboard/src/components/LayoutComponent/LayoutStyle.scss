@@ -1,12 +1,15 @@
-.main-layout {
+.main__layout {
   width: 100vw;
   overflow: hidden;
+  display: flex;
+  justify-content: space-between;
 }
 
 .sidebar__content {
   width: 25rem;
   background-color: #0078d6;
   height: 100vh;
+  overflow: hidden;
 
   &--logo {
     display: flex;
@@ -24,22 +27,19 @@
   }
 }
 
-.e-sidebar {
-  overflow: hidden;
-}
-
 .main__content {
-  height: calc(100vh - 6.5rem);
+  height: 100vh;
   padding: 0 3rem;
-  width: calc(100% - 25rem);
   font-size: 1.4rem;
   color: rgb(96, 94, 92);
-  max-width: 100%;
+  width: calc(100% - 25rem);
   overflow: hidden;
 
   .content__wrapper {
+    height: calc(100vh - 6.5rem);
     max-width: 100%;
     overflow: auto;
+    white-space: nowrap;
   }
 
   .top__bar {
@@ -48,24 +48,28 @@
     justify-content: space-between;
     height: 6.5rem;
     width: 100%;
-
+    button {
+      background-color: transparent;
+      color: rgb(96, 94, 92);
+      border: none;
+      margin-right: 1rem;
+      outline: none;
+      padding: 0.5rem;
+      font-size: 2rem;
+      cursor: pointer;
+      &:active,
+      &:visited {
+        outline: none;
+      }
+    }
     .top__left {
       display: flex;
       min-width: 80%;
-      button {
-        background-color: transparent;
-        color: rgb(96, 94, 92);
-        border-color: #e2e8f0;
-        border-width: 0.1rem;
-        border-style: solid;
-        border-radius: 0.3rem;
-        margin-right: 1rem;
-        outline: none;
-        &:active,
-        &:visited {
-          outline: none;
-        }
-      }
+      align-items: center;
+    }
+
+    .top__right {
+      display: flex;
     }
   }
 

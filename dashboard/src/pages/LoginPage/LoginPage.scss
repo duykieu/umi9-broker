@@ -1,0 +1,23 @@
+.login__page {
+  background-color: #0078d6;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .login__form {
+    width: 40rem;
+    color: #dadada;
+    max-width: 100%;
+    padding: 0 1.5rem;
+
+    h1 {
+      color: currentColor;
+      font-size: 2.8rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
+}

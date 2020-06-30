@@ -5,6 +5,7 @@ import GeoReducer from "./GeoReducer";
 import CategoryReducer from "./CategoryReducer";
 import PriceModelReducer from "./PriceModelReducer";
 import UserReducer from "./UserReducer";
+import AuthReducer from "./AuthReducer";
 
 export default combineReducers({
   NotificationReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   CategoryReducer,
   PriceModelReducer,
   UserReducer,
+  AuthReducer,
 });
