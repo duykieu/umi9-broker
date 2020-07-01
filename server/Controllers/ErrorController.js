@@ -2,14 +2,14 @@ const AppError = require("../Libs/AppError");
 
 const handleCastErrorDB = err => {
     const message = `Invalid ${err.path}: ${err.value}.`;
-    return new AppError(message, 500);
+    return new AppError(message, 200);
 };
 
 const handleDuplicateFieldsDB = err => {
     const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
 
     const message = `Duplicate field value: ${value}. Please use another value!`;
-    return new AppError(message, 500);
+    return new AppError(message, 200);
 };
 
 const handleValidationErrorDB = err => {
@@ -19,10 +19,10 @@ const handleValidationErrorDB = err => {
     return new AppError(message, 200);
 };
 
-const handleJWTError = () => new AppError("Invalid token. Please log in again!", 401);
+const handleJWTError = () => new AppError("Invalid token. Please log in again!", 200);
 
 const handleJWTExpiredError = () =>
-    new AppError("Your token has expired! Please log in again.", 401);
+    new AppError("Your token has expired! Please log in again.", 200);
 
 const sendErrorDev = (err, req, res) => {
     // A) API
@@ -33,6 +33,7 @@ const sendErrorDev = (err, req, res) => {
         message: err.message,
         stack: err.stack,
     });
+    Au;
     // B) RENDERED WEBSITE
     console.error("ERROR 💥", err);
 };
@@ -59,7 +60,7 @@ const sendErrorProd = (err, req, res) => {
 module.exports = (err, req, res, next) => {
     // console.log(err.stack);
 
-    err.statusCode = err.statusCode || 500;
+    err.statusCode = err.statusCode || 200;
     err.status = err.status || "error";
 
     if (process.env.NODE_ENV === "production") {

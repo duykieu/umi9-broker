@@ -18,5 +18,5 @@ exports.mysqlConn = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "Kieu@123123",
-    database: "nhatrungtam",
+    database: "matbangsaigon",
 });

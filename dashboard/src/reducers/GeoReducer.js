@@ -17,11 +17,7 @@ const initState = {
   cities: [],
   wards: [],
   streets: [],
-  selectedState: {
-    id: "1",
-    code: "SG",
-    name: "Hồ Chí Minh",
-  },
+  selectedState: {},
   selectedCity: {},
   selectedStreet: {},
   selectedWard: {},
@@ -53,25 +49,25 @@ export default (state = initState, action) => {
       return {
         ...state,
         selectedState:
-          state.states.find((item) => item.code === action.payload) || {},
+          state.states.find((item) => item._id === action.payload) || {},
       };
     case SET_CITY:
       return {
         ...state,
         selectedCity:
-          state.cities.find((item) => item.code === action.payload) || {},
+          state.cities.find((item) => item._id === action.payload) || {},
       };
     case SET_WARD:
       return {
         ...state,
         selectedWard:
-          state.wards.find((item) => item.code === action.payload) || {},
+          state.wards.find((item) => item._id === action.payload) || {},
       };
     case SET_STREET:
       return {
         ...state,
         selectedStreet:
-          state.streets.find((item) => item.code === action.payload) || {},
+          state.streets.find((item) => item._id === action.payload) || {},
       };
     case CLEAR_CITY_LIST:
       return {

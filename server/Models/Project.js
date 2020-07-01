@@ -5,11 +5,14 @@ const ProjectSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    address: {
-        type: String,
-        required: true,
-    },
+    slug: String,
+    lat: String,
+    lng: String,
     description: String,
+    city: {
+        type: mongoose.Types.ObjectId,
+        ref: "City",
+    },
     images: [
         {
             original: String,

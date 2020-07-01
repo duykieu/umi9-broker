@@ -11,6 +11,7 @@ import {
   setWardAction,
   setStreetAction,
   setCityAction,
+  fetchStatesAction,
 } from "../actions/GeoAction";
 
 function NullGeoComonent({ dispatch, GeoReducer }) {
@@ -18,24 +19,31 @@ function NullGeoComonent({ dispatch, GeoReducer }) {
 
   React.useEffect(() => {
     setIsMounted(true);
+    dispatch(fetchStatesAction());
   }, []);
 
   React.useEffect(() => {
-    dispatch(setCityAction(undefined));
-    dispatch(setWardAction(undefined));
-    dispatch(setStreetAction(undefined));
-    dispatch(fetchCitiesAction(GeoReducer.selectedState.code));
+    dispatch(clearCityListAction());
+    dispatch(fetchCitiesAction(GeoReducer.selectedState._id));
   }, [GeoReducer.selectedState]);
 
   React.useEffect(() => {
-    if (
-      GeoReducer.selectedCity &&
-      Object.keys(GeoReducer.selectedCity).length
-    ) {
-      dispatch(setWardAction(undefined));
-      dispatch(setStreetAction(undefined));
-      dispatch(fetchStreetsAction(GeoReducer.selectedCity.code));
-      dispatch(fetchWardsAction(GeoReducer.selectedCity.code));
+    console.log({ GeoReducer: GeoReducer.selectedCity });
+    if (Object.keys(GeoReducer.selectedCity).length) {
+      dispatch(cleartStreetListAction());
+      dispatch(clearWardListAction());
+      dispatch(
+        fetchStreetsAction({
+          stateId: GeoReducer.selectedCity.state,
+          cityId: GeoReducer.selectedCity._id,
+        })
+      );
+      dispatch(
+        fetchWardsAction({
+          stateId: GeoReducer.selectedCity.state,
+          cityId: GeoReducer.selectedCity._id,
+        })
+      );
     }
   }, [GeoReducer.selectedCity]);
 

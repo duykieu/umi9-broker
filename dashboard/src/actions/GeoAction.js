@@ -44,30 +44,30 @@ export const fetchStreetsAction = factory({
   noSuccessNotification: true,
 });
 
-export const setStateAction = (code) => (dispatch) => {
+export const setStateAction = (_id) => (dispatch) => {
   return new Promise(() => {
     return dispatch({
       type: SET_STATE,
-      payload: code,
+      payload: _id,
     });
   });
 };
-export const setCityAction = (code) => (dispatch) => {
+export const setCityAction = (_id) => (dispatch) => {
   return new Promise(() => {
     dispatch({
       type: SET_CITY,
-      payload: code,
+      payload: _id,
     });
   });
 };
 
-export const setWardAction = (code) => ({
+export const setWardAction = (_id) => ({
   type: SET_WARD,
-  payload: code,
+  payload: _id,
 });
-export const setStreetAction = (code) => ({
+export const setStreetAction = (_id) => ({
   type: SET_STREET,
-  payload: code,
+  payload: _id,
 });
 
 export const clearCityListAction = () => ({

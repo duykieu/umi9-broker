@@ -6,6 +6,7 @@ import CategoryReducer from "./CategoryReducer";
 import PriceModelReducer from "./PriceModelReducer";
 import UserReducer from "./UserReducer";
 import AuthReducer from "./AuthReducer";
+import PropertyReducer from "../modules/Property/PropertyReducer";
 
 export default combineReducers({
   NotificationReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   PriceModelReducer,
   UserReducer,
   AuthReducer,
+  PropertyReducer,
 });

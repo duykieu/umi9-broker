@@ -2,18 +2,20 @@ import axios from "axios";
 
 const GeoService = {
   fetchStates: () => {
-    return axios.get(process.env.REACT_APP_GEO_API + "/state", {
-      mode: "no-cors",
-    });
+    return axios.get(process.env.REACT_APP_MAIN_API + "/state");
   },
-  fetchCities: (stateCode) => {
-    return axios.get(process.env.REACT_APP_GEO_API + "/city/" + stateCode);
+  fetchCities: (stateId) => {
+    return axios.get(process.env.REACT_APP_MAIN_API + "/city/" + stateId);
   },
-  fetchWards: (cityId) => {
-    return axios.get(process.env.REACT_APP_GEO_API + "/ward/" + cityId);
+  fetchWards: ({ stateId, cityId }) => {
+    return axios.get(
+      process.env.REACT_APP_MAIN_API + "/ward/" + stateId + "/" + cityId
+    );
   },
-  fetchStreets: (cityId) => {
-    return axios.get(process.env.REACT_APP_GEO_API + "/street/" + cityId);
+  fetchStreets: ({ stateId, cityId }) => {
+    return axios.get(
+      process.env.REACT_APP_MAIN_API + "/street/" + stateId + "/" + cityId
+    );
   },
 };
 

@@ -1,5 +1,5 @@
 const { mysqlConn, mongoConn } = require("./db");
-const Category = require("../Models/Category");
+const Category = require("../../Models/Category");
 
 mysqlConn.query("Select * from property_types", (error, docs) => {
     if (!error) {

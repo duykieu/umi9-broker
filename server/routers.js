@@ -8,10 +8,31 @@ const PriceModelController = require("./Controllers/PriceModelController");
 const UserGroupController = require("./Controllers/UserGroupController");
 const ImageController = require("./Controllers/ImageController");
 const AuthController = require("./Controllers/AuthController");
+const StateController = require("./Controllers/StateController");
+const CityController = require("./Controllers/CityController");
+const StreetController = require("./Controllers/StreetController");
+const WardController = require("./Controllers/WardController");
+const ProjectController = require("./Controllers/ProjectController");
 
 router.route("/login").post(AuthController.login);
 
+//Geo Fetch
+router.route("/state").get(StateController.get);
+router.route("/city/:idOrSlug").get(CityController.get);
+router.route("/ward/:stateId/:cityId").get(WardController.get);
+router.route("/street/:stateId/:cityId").get(StreetController.get);
+router.route("/project/:stateId/:cityId").get(ProjectController.get);
+
 router.use(AuthController.protect);
+
+//Geo edit
+router.post("/state", StateController.store);
+router
+    .route("/state/:id")
+    .get(StateController.show)
+    .patch(StateController.update)
+    .delete(StateController.destroy);
+
 router.route("/user").get(UserController.get).post(UserController.store);
 router
     .route("/user/:id")

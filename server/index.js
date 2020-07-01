@@ -1,4 +1,5 @@
 require("dotenv").config();
+const fs = require("fs");
 const express = require("express");
 const colors = require("colors");
 const mongoose = require("mongoose");
@@ -36,7 +37,11 @@ if (process.env.NODE_ENV === "development") {
     server.use(morgan("dev"));
 }
 server.use(express.json());
-
+server.get("/geo", async (req, res) => {
+    fs.readFile("./local.json", (err, data) => {
+        return res.json(JSON.parse(data));
+    });
+});
 server.use(router);
 
 server.all("*", (req, res, next) => {

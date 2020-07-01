@@ -7,25 +7,27 @@ import * as mockData from "../../mockData.json";
 import UserFormComponent from "../UserFormComponent/UserFormComponent";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 
-const UserSelectionComponent = ({ listUsers, groups, onChange }) => {
+const UserSelectionComponent = ({ listUsers, groups, change }) => {
   const [isOpenForm, setIsOpenForm] = React.useState(false);
 
   const [users, setUsers] = React.useState([]);
 
-  const [noData] = React.useState({
-    button: uniqueId(),
-    wrapper: uniqueId(),
-  });
+  const [value, setValue] = React.useState(null);
+
+  const [text, setText] = React.useState(null);
 
   React.useEffect(() => {
     if (listUsers instanceof Array) {
       setUsers(
         listUsers
-          .filter((user) => user.userGroup)
+          .filter((user) => {
+            if (!groups) return true;
+            return groups.includes(user.userGroup);
+          })
           .map((item) => {
-            const text = `${item.fullName || item.displayName} | ${
-              item.phoneNumber
-            }`;
+            const text = `${item.userGroup.toUpperCase()} | ${
+              item.fullName || item.displayName || "Chưa rõ"
+            } | ${item.phoneNumber}`;
             return {
               text,
               value: item.username,
@@ -35,27 +37,19 @@ const UserSelectionComponent = ({ listUsers, groups, onChange }) => {
     }
   }, [listUsers]);
 
-  const template = `<div id="${noData.wrapper}"> 
-    Không tìm thấy người dùng nào? <div></div> <button id="${noData.button}" class="e-control e-btn">Thêm mới</button></div> 
-    `;
-
-  let listObj = React.useRef();
-
-  const onFiltering = (e) => {
-    let query = new Query();
-    // frame the query based on search string with filter type.
-    query = e.text !== (users, query);
-    if (document.getElementById(noData.wrapper)) {
-      document.getElementById(noData.button).onclick = function () {
-        console.log({ noDataButton: noData.button });
-        setIsOpenForm(true);
-        // let newItem = { Name: "Duy", Code: "Duy" };
-        // listObj.dataSource.push(newItem);
-        // listObj.hidePopup();
-        // listObj.addItem(newItem);
-        // listObj.value = "Duy";
-      };
-    }
+  const onSuccess = ({
+    username,
+    userGroup,
+    fullName,
+    displayName,
+    phoneNumber,
+  }) => {
+    setValue(username);
+    setText(
+      `${userGroup.toUpperCase()} | ${
+        fullName || displayName || "Chưa rõ"
+      } |${phoneNumber}`
+    );
   };
 
   const noRecordsTemplate = () => (
@@ -71,31 +65,29 @@ const UserSelectionComponent = ({ listUsers, groups, onChange }) => {
 
   const formFail = () => {};
 
-  const formSuccess = () => {};
-
   return (
     <React.Fragment>
       <ComboBoxComponent
-        id="customvalue"
-        ref={(c) => (listObj = c)}
         dataSource={users}
-        filtering={onFiltering}
         allowFiltering={true}
         fields={{ text: "text", value: "value" }}
         noRecordsTemplate={noRecordsTemplate}
         placeholder="Select"
-        popupHeight="270px"
         filterType="Contains"
         ignoreAccent
-        change={onChange}
+        change={change}
+        text={text}
+        value={value}
       />
-      <UserFormComponent
-        visible={isOpenForm}
-        closeForm={closeForm}
-        formFail={formFail}
-        formSuccess={formSuccess}
-        groups={groups}
-      />
+      {isOpenForm && (
+        <UserFormComponent
+          visible={isOpenForm}
+          closeForm={closeForm}
+          formFail={formFail}
+          onSuccess={onSuccess}
+          groups={groups}
+        />
+      )}
     </React.Fragment>
   );
 };

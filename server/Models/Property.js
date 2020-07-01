@@ -7,15 +7,30 @@ const PropertySchema = new mongoose.Schema({
     },
     address: {
         type: String,
+    },
+    state: {
+        type: mongoose.Types.ObjectId,
+        ref: "State",
         required: true,
     },
-
-    addressSlug: {
-        type: String,
+    city: {
+        type: mongoose.Types.ObjectId,
+        ref: "City",
         required: true,
     },
-    addressId: {
-        type: String,
+    project: {
+        type: mongoose.Types.ObjectId,
+        ref: "Project",
+    },
+    street: {
+        type: mongoose.Types.ObjectId,
+        ref: "Street",
+        required: true,
+    },
+    ward: {
+        type: mongoose.Types.ObjectId,
+        ref: "Ward",
+        required: true,
     },
     width: Number,
     long: Number,
@@ -33,6 +48,8 @@ const PropertySchema = new mongoose.Schema({
     numOfRootTops: Number,
     numOfBeds: Number,
     numOfWcs: Number,
+    direction: String,
+    paperModel: String,
     description: String,
     tags: [String],
     images: [String],
@@ -43,6 +60,10 @@ const PropertySchema = new mongoose.Schema({
         ref: "User",
     },
     updatedUser: {
+        type: String,
+        ref: "User",
+    },
+    user: {
         type: String,
         ref: "User",
     },
@@ -59,6 +80,7 @@ const PropertySchema = new mongoose.Schema({
         ref: "User",
     },
     history: String,
+    commission: String,
     status: {
         type: String,
         required: true,

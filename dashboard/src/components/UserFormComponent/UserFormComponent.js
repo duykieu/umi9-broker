@@ -43,6 +43,7 @@ const UserFormComponent = ({
   dispatch,
   userData,
   groups,
+  onSuccess,
 }) => {
   const [state, setState] = React.useState({
     showLoading: false,
@@ -71,7 +72,10 @@ const UserFormComponent = ({
       : dispatch(storeUserAction(values));
     promise
       .then(({ success }) => {
-        if (success) closeForm();
+        if (success) {
+          closeForm();
+          onSuccess(values);
+        }
         return;
       })
       .then(() => {
@@ -138,7 +142,7 @@ const UserFormComponent = ({
       close={closeForm}
       header={title || "Thêm liên hệ mới"}
     >
-      <form onSubmit={formik.handleSubmit} className="form__content">
+      <div className="form__content">
         <div className="row">
           <FieldComponent
             error={formik.errors["userGroup"]}
@@ -353,12 +357,13 @@ const UserFormComponent = ({
 
         <ButtonComponent
           type="submit"
+          onClick={formik.handleSubmit}
           style={{ marginRight: "1rem" }}
           isPrimary
           content="Lưu lại"
         />
         <ButtonComponent onClick={closeForm} type="button" content="Huỷ bỏ" />
-      </form>
+      </div>
     </DialogComponent>
   );
 };
