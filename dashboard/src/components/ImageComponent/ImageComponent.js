@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Upload, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -11,7 +12,7 @@ function getBase64(file) {
   });
 }
 
-const ImageComponent = ({ listOfFiles, onChange }) => {
+const ImageComponent = ({ listOfFiles, onChange, AuthReducer }) => {
   const [state, setState] = React.useState({
     previewVisible: false,
     previewImage: "",
@@ -56,6 +57,9 @@ const ImageComponent = ({ listOfFiles, onChange }) => {
     <div className="clearfix">
       <Upload
         action={process.env.REACT_APP_MAIN_API + "/image/upload"}
+        headers={{
+          Authorization: AuthReducer.token && `Bearer ${AuthReducer.token}`,
+        }}
         listType="picture-card"
         fileList={fileList}
         onPreview={handlePreview}
@@ -76,4 +80,6 @@ const ImageComponent = ({ listOfFiles, onChange }) => {
   );
 };
 
-export default ImageComponent;
+const mapStateToProps = ({ AuthReducer }) => ({ AuthReducer });
+
+export default connect(mapStateToProps)(ImageComponent);

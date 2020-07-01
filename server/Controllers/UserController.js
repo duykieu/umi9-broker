@@ -4,26 +4,33 @@ const User = require("../Models/User");
 const pagination = require("../Helpers/pagination");
 
 exports.get = catchAsync(async (req, res, next) => {
-    let { page, perPage, ...rest } = req.query;
+    let { page, perPage, type, ...rest } = req.query;
+    let typeQuery = {};
+    if (type === "internal") {
+        typeQuery: {
+            userGroup: {
+                $ne: "member";
+            }
+        }
+    }
 
     if (page && perPage) {
         page = Math.abs(page) || 1; //2
         perPage = Math.abs(perPage) || 15; //10
         const skip = Math.abs(page) * Math.abs(perPage) - 15 || 0; //10
 
-        const total = await User.count({ ...rest });
-        const users = await User.find({ ...rest })
+        const users = await User.find({ ...rest, ...typeQuery })
             .skip(skip)
             .limit(perPage);
         return res.json({
             success: true,
             entries: {
-                meta: pagination(page, perPage, total),
+                meta: pagination(page, perPage, users.length),
                 users,
             },
         });
     } else {
-        const users = await User.find({});
+        const users = await User.find({ ...typeQuery });
         return res.json({
             success: true,
             entries: {
@@ -35,6 +42,12 @@ exports.get = catchAsync(async (req, res, next) => {
 
 exports.store = catchAsync(async (req, res, next) => {
     const data = req.body;
+    Object.keys(data).forEach(key => {
+        if (!data[key]) {
+            data[key] = undefined;
+        }
+    });
+
     const user = await User.create(data);
     return res.json({
         success: true,

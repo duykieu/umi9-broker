@@ -1,5 +1,5 @@
 import * as yup from "yup";
 
-const PropertyFormValidationSchema = {};
+const PropertyFormValidationSchema = yup.object().shape({});
 
 export default PropertyFormValidationSchema;

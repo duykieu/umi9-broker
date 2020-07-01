@@ -44,6 +44,11 @@ class UserValidationSchema {
         .min(10, "Địa chỉ phải dài hơn 10 ký tự")
         .max(255, "Địa chỉ phải ít hơn 255 ký tự")
         .nullable(),
+      userGroup: yup
+        .string()
+        .min(3, "Địa chỉ phải dài hơn 3 ký tự")
+        .max(255, "Địa chỉ phải ít hơn 255 ký tự")
+        .required("Bạn chưa chọn nhóm thành viên"),
       idNumber: yup.number().min(99999999).max(999999999999999).nullable(),
       idIssueDate: yup.date().nullable(),
       idIssuePlace: yup

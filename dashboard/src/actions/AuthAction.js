@@ -21,7 +21,7 @@ export const authLoginAction = (userData) => (dispatch) => {
       return success;
     })
     .catch((error) => {
-      dispatch(setErrorNotification("Something went wrong! Maybe by"));
+      dispatch(setErrorNotification("Kết nối với máy chủ thất bại!"));
       return false;
     });
 };

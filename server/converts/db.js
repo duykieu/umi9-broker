@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const mysql = require("mysql");
 
 const database = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+console.log({ mongoDB: database });
 exports.mongoConn = mongoose
     .connect(database, {
         useNewUrlParser: true,
@@ -17,5 +18,5 @@ exports.mysqlConn = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "Kieu@123123",
-    database: "matbangsaigon",
+    database: "nhatrungtam",
 });

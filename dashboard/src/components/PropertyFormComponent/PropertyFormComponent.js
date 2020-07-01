@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Select } from "antd";
 import slugify from "slugify";
+import { Query } from "@syncfusion/ej2-data";
 
 import "./PropertyFormComponent.scss";
 import { DialogComponent } from "@syncfusion/ej2-react-popups";
@@ -21,8 +22,14 @@ import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import ImageComponent from "../ImageComponent/ImageComponent";
 import { useFormik } from "formik";
 import PropertyFormValidationSchema from "./PropertyFormValidationSchema";
+import { getPriceModelAction } from "../../actions/PriceModelAction";
+import { getCategoryAction } from "../../actions/CategoryAction";
+import { ComboBoxComponent } from "@syncfusion/ej2-react-dropdowns";
+import constants from "../../constants";
+import { getUserAction } from "../../actions/UserAction";
 
 const emptyProperty = {
+  category: "cho-thue-nha-mat-tien",
   address: undefined,
   addressSlug: undefined,
   width: undefined,
@@ -55,6 +62,7 @@ const PropertyFormComponent = ({
   GeoReducer,
   PriceModelReducer,
   CategoryReducer,
+  UserReducer,
   dispatch,
   visible,
   propertyData,
@@ -64,6 +72,9 @@ const PropertyFormComponent = ({
   const [state, setState] = React.useState({
     formData: emptyProperty,
     category: null,
+    defaultState: "SG",
+    defaultCategory: "cho-thue-nha-mat-tien",
+    defaultCity: "SG_10",
   });
 
   React.useEffect(() => {
@@ -73,6 +84,12 @@ const PropertyFormComponent = ({
       setState((state) => ({ ...state, formData: emptyProperty }));
     }
   }, [propertyData]);
+
+  React.useEffect(() => {
+    dispatch(getPriceModelAction());
+    dispatch(getCategoryAction());
+    dispatch(getUserAction({ type: "internal" }));
+  }, []);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -97,23 +114,15 @@ const PropertyFormComponent = ({
       <div className="page__form">
         <div className="row">
           <FieldComponent label="Danh mục">
-            <Select
-              showSearch
-              style={{ width: "100%" }}
+            <ComboBoxComponent
+              fields={{ groupBy: "model", text: "name", value: "slug" }}
+              dataSource={CategoryReducer.data}
+              allowFiltering
+              ignoreAccent
+              filterType="Contains"
               placeholder="Vui lòng chọn"
-              onChange={(v) => console.log({ v })}
-            >
-              {CategoryReducer.data.map((item) => {
-                return (
-                  <Select.Option
-                    key={item._id}
-                    value={slugify(item.name, { locale: "vi", lower: true })}
-                  >
-                    {item.name}
-                  </Select.Option>
-                );
-              })}
-            </Select>
+              change={({ value }) => setFieldValue("category", value)}
+            />
           </FieldComponent>
           <FieldComponent label="Tỉnh/thành phố">
             <Select
@@ -195,33 +204,26 @@ const PropertyFormComponent = ({
           </FieldComponent>
 
           <FieldComponent label="Giá">
-            <TextBoxComponent />
+            <NumericTextBoxComponent
+              min={0}
+              placeholder="Không nhập nếu thoả thuận"
+            />
           </FieldComponent>
 
           <FieldComponent label="Đơn vị tính">
-            <Select
-              showSearch
-              style={{ width: "100%" }}
+            <ComboBoxComponent
+              fields={{ text: "name", value: "code" }}
+              dataSource={PriceModelReducer.data}
+              allowFiltering
+              ignoreAccent
+              filterType="Contains"
               placeholder="Vui lòng chọn"
-              onChange={(v) =>
-                setState((state) => ({
-                  ...state,
-                  formData: { ...state.formData, priceModel: v },
-                }))
-              }
-            >
-              {PriceModelReducer.data.map((item) => {
-                return (
-                  <Select.Option key={item._id} value={item._id}>
-                    {item.name}
-                  </Select.Option>
-                );
-              })}
-            </Select>
+              change={({ value }) => setFieldValue("priceModel", value)}
+            />
           </FieldComponent>
 
           <FieldComponent label="Diện tích tính tiền">
-            <TextBoxComponent />
+            <NumericTextBoxComponent min={0} />
           </FieldComponent>
         </div>
         <div className="divider" />
@@ -251,20 +253,30 @@ const PropertyFormComponent = ({
             <NumericTextBoxComponent min={0} />
           </FieldComponent>
           <FieldComponent size={6} label="Hướng">
-            <TextBoxComponent />
+            <ComboBoxComponent
+              dataSource={constants.LIST_OF_DIRECTION}
+              fields={{ text: "name", value: "code" }}
+              change={({ value }) => setFieldValue("direction", value)}
+            />
           </FieldComponent>
           <FieldComponent size={6} label="Pháp lý">
             <TextBoxComponent />
           </FieldComponent>
           <FieldComponent size={3} label="Nhân viên">
-            <TextBoxComponent />
+            <UserSelectionComponent
+              groups={["staff"]}
+              listUsers={UserReducer.data}
+            />
           </FieldComponent>
         </div>
 
         <div className="divider" />
         <div className="row">
           <FieldComponent label="Liên hệ 1">
-            <UserSelectionComponent />
+            <UserSelectionComponent
+              listUsers={UserReducer.data}
+              groups={["host", "partner"]}
+            />
           </FieldComponent>
           <FieldComponent label="Liên hệ 2">
             <UserSelectionComponent />
@@ -297,10 +309,12 @@ const mapStateToProps = ({
   GeoReducer,
   PriceModelReducer,
   CategoryReducer,
+  UserReducer,
 }) => ({
   GeoReducer,
   PriceModelReducer,
   CategoryReducer,
+  UserReducer,
 });
 
 export default connect(mapStateToProps)(PropertyFormComponent);

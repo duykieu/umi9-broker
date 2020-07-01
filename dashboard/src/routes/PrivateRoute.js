@@ -10,19 +10,27 @@ function PrivateRoute({
   ...rest
 }) {
   let isAuthenticated;
+
   if (!permission) isAuthenticated = true;
+
   if (AuthReducer.token && AuthReducer.permissions.includes(permission)) {
     isAuthenticated = AuthReducer.permissions.includes(permission);
   }
 
-  console.log({ permission, isAuthenticated });
+  if (!permission && !AuthReducer.token) {
+    isAuthenticated = false;
+  }
 
   return (
     <Route
       {...rest}
-      render={(props) =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
-      }
+      render={(props) => {
+        return isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        );
+      }}
     />
   );
 }

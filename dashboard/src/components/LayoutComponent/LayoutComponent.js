@@ -55,14 +55,14 @@ const LayoutComponent = ({
 
         <div className="content__wrapper">{children}</div>
         {addItemLink && (
-          <div className="loading__button">
+          <div className="floating__button">
             <NavLink to={addItemLink} exact>
               <PlusOutlined />
             </NavLink>
           </div>
         )}
         {addItemButton && (
-          <div className="loading__button">
+          <div className="floating__button">
             <button className="button" onClick={() => addItemButton()}>
               <PlusOutlined />
             </button>

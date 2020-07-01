@@ -8,6 +8,7 @@ const PriceModelSchema = new mongoose.Schema({
     code: {
         type: String,
         required: true,
+        unique: true,
     },
     orderNumber: {
         type: Number,
@@ -15,4 +16,4 @@ const PriceModelSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model("PriceModel", PriceModelSchema);
+module.exports = mongoose.model("PriceModel", PriceModelSchema, "price_models");

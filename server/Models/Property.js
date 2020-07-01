@@ -9,52 +9,60 @@ const PropertySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+
     addressSlug: {
         type: String,
         required: true,
+    },
+    addressId: {
+        type: String,
     },
     width: Number,
     long: Number,
     behindWidth: Number,
     landSize: Number,
     gfa: Number,
-    type: {
+    price: Number,
+    priceModel: {
         type: String,
         required: true,
     },
-    price: Number,
-    priceModel: String,
     priceOnSize: Number,
     numOfFloors: Number,
     numOfBasements: Number,
     numOfRootTops: Number,
-    numOfRooms: Number,
     numOfBeds: Number,
+    numOfWcs: Number,
     description: String,
-    tags: String,
+    tags: [String],
     images: [String],
 
     //User
     createdUser: {
-        type: mongoose.Types.ObjectId,
+        type: String,
         ref: "User",
     },
     updatedUser: {
-        type: mongoose.Types.ObjectId,
+        type: String,
         ref: "User",
     },
     createdAt: Date,
     updatedAt: Date,
-    infoFrom: {
+    firstContact: {
         //The host or partner or staff
-        type: mongoose.Types.ObjectId,
+        type: String,
+        ref: "User",
+    },
+    secondContact: {
+        //The host or partner or staff
+        type: String,
         ref: "User",
     },
     history: String,
     status: {
         type: String,
         required: true,
-        enum: ["ok", "hide", "deleted"],
+        enum: ["ok", "hide", "deleted", "out"],
         default: "ok",
     },
 });

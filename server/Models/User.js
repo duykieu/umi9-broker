@@ -5,7 +5,6 @@ const bcrypt = require("bcryptjs");
 const UserSchema = new mongoose.Schema({
     fullName: {
         type: String,
-        required: true,
     },
     displayName: {
         type: String,
@@ -27,7 +26,6 @@ const UserSchema = new mongoose.Schema({
     },
     subPhoneNumber: {
         type: String,
-        unique: true,
         lowercase: true,
         validate: {
             validator: value => /((09|03|07|08|05)+([0-9]{8})\b)/g.test(value),

@@ -85,7 +85,7 @@
   }
 }
 
-.loading__button {
+.floating__button {
   position: fixed;
   right: 3rem;
   bottom: 3rem;
@@ -99,6 +99,7 @@
     font-size: 2.5rem;
     background-color: #0078d6;
     border-radius: 50%;
+    cursor: pointer;
   }
   button {
     display: flex;
@@ -111,6 +112,8 @@
     background-color: #0078d6;
     border-radius: 50%;
     border: none;
+    cursor: pointer;
+
     outline: none;
   }
 

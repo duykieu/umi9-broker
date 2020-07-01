@@ -21,36 +21,27 @@ import {
 } from "../../actions/UserAction";
 import { Col } from "antd";
 
-const emptyUser = {
-  fullName: undefined,
-  displayName: undefined,
-  username: undefined,
-  email: undefined,
-  phoneNumber: undefined,
-  password: undefined,
-  passwordConfirm: undefined,
-  phoneNumber: undefined,
-  subPhoneNumber: undefined,
-  address: undefined,
-};
-
 const UserPage = ({ UserReducer, dispatch }) => {
   const [state, setState] = useState({
     showForm: false,
     showLoading: false,
-    data: emptyUser,
+    selectedUser: undefined,
   });
 
   const openForm = (data = undefined) => {
     setState((state) => ({
       ...state,
       showForm: true,
-      data: data ? data : emptyUser,
+      selectedUser: data,
     }));
   };
 
   const closeForm = () => {
-    setState((state) => ({ ...state, showForm: false, data: emptyUser }));
+    setState((state) => ({
+      ...state,
+      showForm: false,
+      selectedUser: undefined,
+    }));
   };
 
   const loadingOn = () => {
@@ -92,46 +83,45 @@ const UserPage = ({ UserReducer, dispatch }) => {
   return (
     <React.Fragment>
       <LayoutComponent addItemButton={openForm} pageTitle="Quản lý người dùng">
-        <div className="grid__container">
-          <GridComponent
-            commandClick={commandClick}
-            allowSorting
-            allowFiltering
-            allowPaging
-            width={1366 - 250}
-            dataSource={UserReducer.data}
-            toolbar={[{ text: "Add", align: "Right" }]}
-            toolbarClick={toolbarClickHandler}
-            pageSettings={{ pageSize: 15 }}
-          >
-            <ColumnsDirective>
-              <ColumnDirective headerText="Họ tên" field="fullName" />
-              <ColumnDirective headerText="Tên hiển thị" field="displayName" />
-              <ColumnDirective width={250} headerText="Email" field="email" />
-              <ColumnDirective headerText="Tên truy cập" field="username" />
-              <ColumnDirective headerText="Số điện thoại" field="phoneNumber" />
-              <ColumnDirective
-                commands={[
-                  {
-                    buttonOption: {
-                      content: "Sửa",
-                    },
-                    type: "edit",
+        <GridComponent
+          commandClick={commandClick}
+          allowSorting
+          allowFiltering
+          allowPaging
+          width="1000"
+          dataSource={UserReducer.data}
+          toolbar={[{ text: "Add", align: "Right" }]}
+          toolbarClick={toolbarClickHandler}
+          pageSettings={{ pageSize: 15 }}
+        >
+          <ColumnsDirective>
+            <ColumnDirective headerText="Họ tên" field="fullName" />
+            <ColumnDirective headerText="Tên hiển thị" field="displayName" />
+            <ColumnDirective headerText="Email" field="email" />
+            <ColumnDirective headerText="Tên truy cập" field="username" />
+            <ColumnDirective headerText="Số điện thoại" field="phoneNumber" />
+            <ColumnDirective headerText="Số phụ" field="subPhoneNumber" />
+            <ColumnDirective
+              commands={[
+                {
+                  buttonOption: {
+                    content: "Sửa",
                   },
-                  { buttonOption: { content: "Xoá" }, type: "delete" },
-                ]}
-              />
-            </ColumnsDirective>
-            <Inject services={[Page, Sort, Filter, CommandColumn]} />
-          </GridComponent>
-        </div>
+                  type: "edit",
+                },
+                { buttonOption: { content: "Xoá" }, type: "delete" },
+              ]}
+            />
+          </ColumnsDirective>
+          <Inject services={[Page, Sort, Filter, CommandColumn]} />
+        </GridComponent>
       </LayoutComponent>
       <UserFormComponent
         model="user"
         title="Thêm người dùng"
         closeForm={closeForm}
         visible={state.showForm}
-        userData={state.data}
+        userData={state.selectedUser}
         storeUser={storeUser}
         updateUser={updateUser}
         destroyUser={destroyUser}

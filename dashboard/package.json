@@ -43,6 +43,7 @@
     "redux-thunk": "^2.3.0",
     "slugify": "^1.4.4",
     "typescript": "^3.9.5",
+    "uniqid": "^5.2.0",
     "yup": "^0.29.1"
   },
   "scripts": {
