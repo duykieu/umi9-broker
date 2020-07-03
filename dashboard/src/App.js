@@ -12,8 +12,7 @@ function App({ notification, dispatch, AuthReducer }) {
     function (config) {
       // Do something before request is sent
       config.baseURL = process.env.REACT_APP_MAIN_API;
-      config.headers.Authorization =
-        AuthReducer.token && `Bearer ${AuthReducer.token}`;
+      config.headers.Authorization = AuthReducer.token && `Bearer ${AuthReducer.token}`;
       return config;
     },
     function (error) {
@@ -23,13 +22,11 @@ function App({ notification, dispatch, AuthReducer }) {
   );
 
   return (
-    <React.Fragment>
-      <HashRouter>
-        <MainRouter />
-      </HashRouter>
+    <HashRouter>
+      <MainRouter />
       <NullGeoComponent />
       <NullNotificationComponent />
-    </React.Fragment>
+    </HashRouter>
   );
 }
 

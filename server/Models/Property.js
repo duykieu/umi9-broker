@@ -1,33 +1,33 @@
 const mongoose = require("mongoose");
 
 const PropertySchema = new mongoose.Schema({
-    category: {
+    categorySlug: {
         type: String,
         required: true,
     },
     address: {
         type: String,
     },
-    state: {
+    stateId: {
         type: mongoose.Types.ObjectId,
         ref: "State",
         required: true,
     },
-    city: {
+    cityId: {
         type: mongoose.Types.ObjectId,
         ref: "City",
         required: true,
     },
-    project: {
+    projectId: {
         type: mongoose.Types.ObjectId,
         ref: "Project",
     },
-    street: {
+    streetId: {
         type: mongoose.Types.ObjectId,
         ref: "Street",
         required: true,
     },
-    ward: {
+    wardId: {
         type: mongoose.Types.ObjectId,
         ref: "Ward",
         required: true,
@@ -38,7 +38,7 @@ const PropertySchema = new mongoose.Schema({
     landSize: Number,
     gfa: Number,
     price: Number,
-    priceModel: {
+    priceModelCode: {
         type: String,
         required: true,
     },
@@ -55,26 +55,26 @@ const PropertySchema = new mongoose.Schema({
     images: [String],
 
     //User
-    createdUser: {
+    createdUsername: {
         type: String,
         ref: "User",
     },
-    updatedUser: {
+    updatedUsername: {
         type: String,
         ref: "User",
     },
-    user: {
+    username: {
         type: String,
         ref: "User",
     },
     createdAt: Date,
     updatedAt: Date,
-    firstContact: {
+    firstContactUsername: {
         //The host or partner or staff
         type: String,
         ref: "User",
     },
-    secondContact: {
+    secondContactUsername: {
         //The host or partner or staff
         type: String,
         ref: "User",
@@ -83,7 +83,6 @@ const PropertySchema = new mongoose.Schema({
     commission: String,
     status: {
         type: String,
-        required: true,
         enum: ["ok", "hide", "deleted", "out"],
         default: "ok",
     },

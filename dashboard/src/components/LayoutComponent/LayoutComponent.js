@@ -37,37 +37,40 @@ const LayoutComponent = ({
       >
         <div className="top__bar">
           <div className="top__left">
-            <button onClick={toggleSidebar}>
+            <ButtonComponent cssClass="e-outline e-round" onClick={toggleSidebar}>
               {sidebarOpen ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
-            </button>{" "}
+            </ButtonComponent>{" "}
             <h1 className="page__title">{pageTitle}</h1>
           </div>
           <div className="top__right">
-            <button
+            {addItemLink && (
+              <Link to={addItemLink}>
+                <PlusOutlined />
+              </Link>
+            )}
+            {addItemButton && (
+              <ButtonComponent
+                cssClass="e-outline e-round"
+                onClick={() => {
+                  addItemButton();
+                }}
+              >
+                <PlusOutlined />
+              </ButtonComponent>
+            )}
+
+            <ButtonComponent
+              cssClass="e-outline e-round"
               onClick={() => {
                 dispatch(authLogoutAction());
               }}
             >
               <LogoutOutlined />
-            </button>
+            </ButtonComponent>
           </div>
         </div>
 
         <div className="content__wrapper">{children}</div>
-        {addItemLink && (
-          <div className="floating__button">
-            <NavLink to={addItemLink} exact>
-              <PlusOutlined />
-            </NavLink>
-          </div>
-        )}
-        {addItemButton && (
-          <div className="floating__button">
-            <button className="button" onClick={() => addItemButton()}>
-              <PlusOutlined />
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );

@@ -89,8 +89,8 @@ video {
   border: 0;
   font: inherit;
   vertical-align: baseline;
-  font-family: "Segoe UI", "GeezaPro", "DejaVu Serif", sans-serif,
-    "-apple-system", "BlinkMacSystemFont";
+  font-family: "Segoe UI", "GeezaPro", "DejaVu Serif", sans-serif, "-apple-system",
+    "BlinkMacSystemFont";
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -163,8 +163,6 @@ html {
 
 .page__form {
   max-width: 110rem;
-  padding-bottom: 10rem;
-
   .buttons button {
     margin-right: 1rem;
   }
@@ -200,4 +198,8 @@ html {
 .fade-enter.fade-enter-active {
   opacity: 1;
   transition: opacity 250ms ease-in;
+}
+
+.block {
+  width: 100% !important;
 }

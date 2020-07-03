@@ -17,6 +17,8 @@ const router = require("./routers");
 
 //DB Connection
 const database = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+
+console.log({ database });
 mongoose
     .connect(database, {
         useNewUrlParser: true,

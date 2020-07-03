@@ -20,6 +20,7 @@ import {
   destroyUserAction,
 } from "../../actions/UserAction";
 import { Col } from "antd";
+import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 
 const UserPage = ({ UserReducer, dispatch }) => {
   const [state, setState] = useState({
@@ -29,7 +30,7 @@ const UserPage = ({ UserReducer, dispatch }) => {
   });
 
   const openForm = (data = undefined) => {
-    setState((state) => ({
+    setState(state => ({
       ...state,
       showForm: true,
       selectedUser: data,
@@ -37,7 +38,7 @@ const UserPage = ({ UserReducer, dispatch }) => {
   };
 
   const closeForm = () => {
-    setState((state) => ({
+    setState(state => ({
       ...state,
       showForm: false,
       selectedUser: undefined,
@@ -45,32 +46,33 @@ const UserPage = ({ UserReducer, dispatch }) => {
   };
 
   const loadingOn = () => {
-    setState((state) => ({ ...state, showLoading: true }));
+    setState(state => ({ ...state, showLoading: true }));
   };
 
   const loadingOff = () => {
-    setState((state) => ({ ...state, showLoading: false }));
+    setState(state => ({ ...state, showLoading: false }));
   };
 
   //Init server data
   React.useEffect(() => {
-    dispatch(getUserAction());
+    loadingOn();
+    dispatch(getUserAction()).then(loadingOff);
   }, []);
 
   //CRUD
-  const storeUser = (data) => {
+  const storeUser = data => {
     return dispatch(storeUserAction(data));
   };
 
-  const updateUser = (data) => {
+  const updateUser = data => {
     return dispatch(updateUserAction(data));
   };
 
-  const destroyUser = (data) => {
+  const destroyUser = data => {
     return dispatch(destroyUserAction(data));
   };
 
-  const toolbarClickHandler = (args) => {
+  const toolbarClickHandler = args => {
     console.log({ args });
   };
 
@@ -81,41 +83,39 @@ const UserPage = ({ UserReducer, dispatch }) => {
   };
 
   return (
-    <React.Fragment>
-      <LayoutComponent addItemButton={openForm} pageTitle="Quản lý người dùng">
-        <GridComponent
-          commandClick={commandClick}
-          allowSorting
-          allowFiltering
-          allowPaging
-          width="1000"
-          dataSource={UserReducer.data}
-          toolbar={[{ text: "Add", align: "Right" }]}
-          toolbarClick={toolbarClickHandler}
-          pageSettings={{ pageSize: 15 }}
-        >
-          <ColumnsDirective>
-            <ColumnDirective headerText="Họ tên" field="fullName" />
-            <ColumnDirective headerText="Tên hiển thị" field="displayName" />
-            <ColumnDirective headerText="Email" field="email" />
-            <ColumnDirective headerText="Tên truy cập" field="username" />
-            <ColumnDirective headerText="Số điện thoại" field="phoneNumber" />
-            <ColumnDirective headerText="Số phụ" field="subPhoneNumber" />
-            <ColumnDirective
-              commands={[
-                {
-                  buttonOption: {
-                    content: "Sửa",
-                  },
-                  type: "edit",
+    <LayoutComponent addItemButton={openForm} pageTitle="Quản lý người dùng">
+      <GridComponent
+        commandClick={commandClick}
+        allowSorting
+        allowFiltering
+        allowPaging
+        width="1000"
+        dataSource={UserReducer.data}
+        toolbar={[{ text: "Add", align: "Right" }]}
+        toolbarClick={toolbarClickHandler}
+        pageSettings={{ pageSize: 15 }}
+      >
+        <ColumnsDirective>
+          <ColumnDirective headerText="Họ tên" field="fullName" />
+          <ColumnDirective headerText="Tên hiển thị" field="displayName" />
+          <ColumnDirective headerText="Email" field="email" />
+          <ColumnDirective headerText="Tên truy cập" field="username" />
+          <ColumnDirective headerText="Số điện thoại" field="phoneNumber" />
+          <ColumnDirective headerText="Số phụ" field="subPhoneNumber" />
+          <ColumnDirective
+            commands={[
+              {
+                buttonOption: {
+                  content: "Sửa",
                 },
-                { buttonOption: { content: "Xoá" }, type: "delete" },
-              ]}
-            />
-          </ColumnsDirective>
-          <Inject services={[Page, Sort, Filter, CommandColumn]} />
-        </GridComponent>
-      </LayoutComponent>
+                type: "edit",
+              },
+              { buttonOption: { content: "Xoá" }, type: "delete" },
+            ]}
+          />
+        </ColumnsDirective>
+        <Inject services={[Page, Sort, Filter, CommandColumn]} />
+      </GridComponent>
       <UserFormComponent
         model="user"
         title="Thêm người dùng"
@@ -129,7 +129,8 @@ const UserPage = ({ UserReducer, dispatch }) => {
         loadingOn={loadingOn}
         dispatch={dispatch}
       />
-    </React.Fragment>
+      <LoadingComponent visible={state.showLoading} />
+    </LayoutComponent>
   );
 };
 

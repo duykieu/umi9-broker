@@ -1,7 +1,8 @@
 import DashboardPage from "../pages/DashboardPage/DashboardPage";
 import UserPage from "../pages/UserPage/UserPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
-import PropertyPage from "../pages/PropertyPage/PropertyPage";
+import PropertyPage from "../modules/Property/PropertyPage";
+import PropertyFormComponent from "../modules/Property/PropertyFormComponent";
 
 export default [
   {
@@ -23,6 +24,12 @@ export default [
   {
     path: "/property",
     component: PropertyPage,
+    permission: "PropertyIndex",
+    exact: true,
+  },
+  {
+    path: "/property/add",
+    component: PropertyFormComponent,
     permission: "PropertyIndex",
   },
 ];

@@ -8,11 +8,11 @@ function getBase64(file) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
+    reader.onerror = error => reject(error);
   });
 }
 
-const ImageComponent = ({ listOfFiles, onChange, AuthReducer }) => {
+const ImageComponent = ({ listOfFiles, change, AuthReducer }) => {
   const [state, setState] = React.useState({
     previewVisible: false,
     previewImage: "",
@@ -20,29 +20,30 @@ const ImageComponent = ({ listOfFiles, onChange, AuthReducer }) => {
     fileList: listOfFiles || [],
   });
 
-  const handleCancel = () =>
-    setState((state) => ({ ...state, previewVisible: false }));
+  const handleCancel = () => setState(state => ({ ...state, previewVisible: false }));
 
-  React.useEffect(() => {
-    if (onChange) onChange(state.fileList);
-  }, [state.fileList]);
-
-  const handlePreview = async (file) => {
+  const handlePreview = async file => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
 
-    setState((state) => ({
+    setState(state => ({
       ...state,
       previewImage: file.url || file.preview,
       previewVisible: true,
-      previewTitle:
-        file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
+      previewTitle: file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
     }));
   };
 
   const handleChange = ({ fileList }) => {
-    setState((state) => ({ ...state, fileList }));
+    setState(state => ({ ...state, fileList }));
+    const imageIds = [];
+    fileList.forEach(file => {
+      if (file.response && file.response.success) {
+        imageIds.push(file.response.imageId);
+      }
+    });
+    change(imageIds);
   };
 
   const { previewVisible, previewImage, fileList, previewTitle } = state;

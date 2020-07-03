@@ -20,11 +20,11 @@ const UserSelectionComponent = ({ listUsers, groups, change }) => {
     if (listUsers instanceof Array) {
       setUsers(
         listUsers
-          .filter((user) => {
+          .filter(user => {
             if (!groups) return true;
             return groups.includes(user.userGroup);
           })
-          .map((item) => {
+          .map(item => {
             const text = `${item.userGroup.toUpperCase()} | ${
               item.fullName || item.displayName || "Chưa rõ"
             } | ${item.phoneNumber}`;
@@ -37,13 +37,7 @@ const UserSelectionComponent = ({ listUsers, groups, change }) => {
     }
   }, [listUsers]);
 
-  const onSuccess = ({
-    username,
-    userGroup,
-    fullName,
-    displayName,
-    phoneNumber,
-  }) => {
+  const onSuccess = ({ username, userGroup, fullName, displayName, phoneNumber }) => {
     setValue(username);
     setText(
       `${userGroup.toUpperCase()} | ${
@@ -79,15 +73,13 @@ const UserSelectionComponent = ({ listUsers, groups, change }) => {
         text={text}
         value={value}
       />
-      {isOpenForm && (
-        <UserFormComponent
-          visible={isOpenForm}
-          closeForm={closeForm}
-          formFail={formFail}
-          onSuccess={onSuccess}
-          groups={groups}
-        />
-      )}
+      <UserFormComponent
+        visible={isOpenForm}
+        closeForm={closeForm}
+        formFail={formFail}
+        onSuccess={onSuccess}
+        groups={groups}
+      />
     </React.Fragment>
   );
 };

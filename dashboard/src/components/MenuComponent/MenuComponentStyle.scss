@@ -7,6 +7,17 @@
       text-decoration: none;
       font-size: 1.6rem;
       color: #ccc;
+      height: 3.4rem;
+
+      div {
+        transition: all 300ms;
+      }
+      &:hover div {
+        margin-top: -2px;
+      }
+      &:active {
+        margin-top: -1px;
+      }
       &.active {
         color: #fff;
       }

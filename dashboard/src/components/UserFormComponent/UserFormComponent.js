@@ -7,10 +7,7 @@ import { DialogComponent } from "@syncfusion/ej2-react-popups";
 import FieldComponent from "../FieldComponent/FieldComponent";
 import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
 import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
-import {
-  ButtonComponent,
-  SwitchComponent,
-} from "@syncfusion/ej2-react-buttons";
+import { ButtonComponent, SwitchComponent } from "@syncfusion/ej2-react-buttons";
 
 import "./UserFormStyle.scss";
 import UserValidationSchema from "./UserValidationSchema";
@@ -54,18 +51,16 @@ const UserFormComponent = ({
 
   React.useEffect(() => {
     if (userData) {
-      setState((state) => ({ ...state, formData: userData }));
+      setState(state => ({ ...state, formData: userData }));
     } else {
-      setState((state) => ({ ...state, formData: emptyUser }));
+      setState(state => ({ ...state, formData: emptyUser }));
     }
   }, [userData]);
 
-  const loadingOn = () =>
-    setState((state) => ({ ...state, showLoading: true }));
-  const loadingOff = () =>
-    setState((state) => ({ ...state, showLoading: false }));
+  const loadingOn = () => setState(state => ({ ...state, showLoading: true }));
+  const loadingOff = () => setState(state => ({ ...state, showLoading: false }));
 
-  const onFormSubmit = (values) => {
+  const onFormSubmit = values => {
     loadingOn();
     const promise = values._id
       ? dispatch(updateUserAction(values))
@@ -121,17 +116,19 @@ const UserFormComponent = ({
   }, [formik.values.userGroup, formik.values.phoneNumber]);
 
   const userGroups = Object.keys(constants.LIST_OF_USER_GROUPS)
-    .filter((code) => {
+    .filter(code => {
       if (!groups) return true;
       return groups.includes(code);
     })
-    .filter((code) => code !== "super_adm")
-    .map((code) => {
+    .filter(code => code !== "super_adm")
+    .map(code => {
       return {
         code,
         name: constants.LIST_OF_USER_GROUPS[code],
       };
     });
+
+  if (!visible) return null;
 
   return (
     <DialogComponent
@@ -153,7 +150,7 @@ const UserFormComponent = ({
             <ComboBoxComponent
               // value={userData ? formik.values.userGroup : "staff"}
               placeholder="Chọn nhóm"
-              immediateRender={(params) => {
+              immediateRender={params => {
                 console.log({ params });
               }}
               fields={{ text: "name", value: "code" }}
@@ -239,120 +236,108 @@ const UserFormComponent = ({
             />
           </FieldComponent>
 
-          <React.Fragment>
-            <FieldComponent
-              error={formik.errors["password"]}
-              touched={formik.touched["password"]}
-              label="Mật khẩu"
-              size={2}
-            >
-              <TextBoxComponent
-                name="passwordConfirm"
-                type="password"
-                placeholder="Nhập mật khẩu"
-                change={({ value }) => formik.setFieldValue("password", value)}
-                disabled={state.showLoading}
-                value={null}
-              />
-            </FieldComponent>
-            <FieldComponent
-              error={formik.errors["passwordConfirm"]}
-              label="Nhập lại mật khẩu"
-              touched={formik.touched["passwordConfirm"]}
-              size={2}
-            >
-              <TextBoxComponent
-                name="passwordConfirm"
-                placeholder="Nhập lại mật khẩu"
-                change={({ value }) =>
-                  formik.setFieldValue("passwordConfirm", value)
-                }
-                type="password"
-                value={null}
-                disabled={state.showLoading}
-              />
-            </FieldComponent>
-          </React.Fragment>
+          <FieldComponent
+            error={formik.errors["password"]}
+            touched={formik.touched["password"]}
+            label="Mật khẩu"
+            size={2}
+          >
+            <TextBoxComponent
+              name="passwordConfirm"
+              type="password"
+              placeholder="Nhập mật khẩu"
+              change={({ value }) => formik.setFieldValue("password", value)}
+              disabled={state.showLoading}
+              value={null}
+            />
+          </FieldComponent>
+          <FieldComponent
+            error={formik.errors["passwordConfirm"]}
+            label="Nhập lại mật khẩu"
+            touched={formik.touched["passwordConfirm"]}
+            size={2}
+          >
+            <TextBoxComponent
+              name="passwordConfirm"
+              placeholder="Nhập lại mật khẩu"
+              change={({ value }) => formik.setFieldValue("passwordConfirm", value)}
+              type="password"
+              value={null}
+              disabled={state.showLoading}
+            />
+          </FieldComponent>
 
-          <React.Fragment>
-            <FieldComponent
-              error={formik.errors["idNumber"]}
-              touched={formik.touched["idNumber"]}
-              label="CMND số"
-              size={3}
-            >
-              <TextBoxComponent
-                name="idNumber"
-                placeholder="Ex: 285188288"
-                value={formik.values.idNumber}
-                change={({ value }) => formik.setFieldValue("idNumber", value)}
-                disabled={state.showLoading}
-              />
-            </FieldComponent>
-            <FieldComponent
-              error={formik.errors["idIssueDate"]}
-              touched={formik.touched["idIssueDate"]}
-              label="Cấp ngày"
-              size={3}
-            >
-              <DatePickerComponent
-                name="idIssueDate"
-                placeholder=""
-                value={formik.values.idIssueDate}
-                change={({ value }) =>
-                  formik.setFieldValue("idIssueDate", value)
-                }
-                max={new Date()}
-                disabled={state.showLoading}
-              />
-            </FieldComponent>
-            <FieldComponent
-              error={formik.errors["idIssuePlace"]}
-              label="Nơi cấp"
-              touched={formik.touched["idIssuePlace"]}
-              size={3}
-            >
-              <TextBoxComponent
-                name="idIssuePlace"
-                placeholder=""
-                value={formik.values.idIssuePlace}
-                change={({ value }) =>
-                  formik.setFieldValue("idIssuePlace", value)
-                }
-                disabled={state.showLoading}
-              />
-            </FieldComponent>
-            <FieldComponent
-              error={formik.errors["subPhoneNumber"]}
-              touched={formik.touched["subPhoneNumber"]}
-              label="Số phụ"
-              size={2}
-            >
-              <TextBoxComponent
-                placeholder="Không bắt buộc"
-                change={({ value }) =>
-                  formik.setFieldValue("subPhoneNumber", value)
-                }
-                name="subPhoneNumber"
-                value={formik.values.subPhoneNumber}
-                disabled={state.showLoading}
-              />
-            </FieldComponent>
-            <FieldComponent
-              error={formik.errors["address"]}
-              touched={formik.touched["address"]}
-              label="Địa chỉ"
-              size={2}
-            >
-              <TextBoxComponent
-                name="address"
-                placeholder="Nhập địa chỉ"
-                change={({ value }) => formik.setFieldValue("address", value)}
-                value={formik.values.address}
-                disabled={state.showLoading}
-              />
-            </FieldComponent>
-          </React.Fragment>
+          <FieldComponent
+            error={formik.errors["idNumber"]}
+            touched={formik.touched["idNumber"]}
+            label="CMND số"
+            size={3}
+          >
+            <TextBoxComponent
+              name="idNumber"
+              placeholder="Ex: 285188288"
+              value={formik.values.idNumber}
+              change={({ value }) => formik.setFieldValue("idNumber", value)}
+              disabled={state.showLoading}
+            />
+          </FieldComponent>
+          <FieldComponent
+            error={formik.errors["idIssueDate"]}
+            touched={formik.touched["idIssueDate"]}
+            label="Cấp ngày"
+            size={3}
+          >
+            <DatePickerComponent
+              name="idIssueDate"
+              placeholder=""
+              value={formik.values.idIssueDate}
+              change={({ value }) => formik.setFieldValue("idIssueDate", value)}
+              max={new Date()}
+              disabled={state.showLoading}
+            />
+          </FieldComponent>
+          <FieldComponent
+            error={formik.errors["idIssuePlace"]}
+            label="Nơi cấp"
+            touched={formik.touched["idIssuePlace"]}
+            size={3}
+          >
+            <TextBoxComponent
+              name="idIssuePlace"
+              placeholder=""
+              value={formik.values.idIssuePlace}
+              change={({ value }) => formik.setFieldValue("idIssuePlace", value)}
+              disabled={state.showLoading}
+            />
+          </FieldComponent>
+          <FieldComponent
+            error={formik.errors["subPhoneNumber"]}
+            touched={formik.touched["subPhoneNumber"]}
+            label="Số phụ"
+            size={2}
+          >
+            <TextBoxComponent
+              placeholder="Không bắt buộc"
+              change={({ value }) => formik.setFieldValue("subPhoneNumber", value)}
+              name="subPhoneNumber"
+              value={formik.values.subPhoneNumber}
+              disabled={state.showLoading}
+            />
+          </FieldComponent>
+          <FieldComponent
+            error={formik.errors["address"]}
+            touched={formik.touched["address"]}
+            label="Địa chỉ"
+            size={2}
+          >
+            <TextBoxComponent
+              name="address"
+              placeholder="Nhập địa chỉ"
+              change={({ value }) => formik.setFieldValue("address", value)}
+              value={formik.values.address}
+              disabled={state.showLoading}
+            />
+          </FieldComponent>
         </div>
 
         <ButtonComponent

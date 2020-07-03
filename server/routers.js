@@ -23,7 +23,8 @@ router.route("/ward/:stateId/:cityId").get(WardController.get);
 router.route("/street/:stateId/:cityId").get(StreetController.get);
 router.route("/project/:stateId/:cityId").get(ProjectController.get);
 
-router.use(AuthController.protect);
+// router.use(AuthController.protect);
+router.route("/user").get(UserController.get).post(UserController.store);
 
 //Geo edit
 router.post("/state", StateController.store);

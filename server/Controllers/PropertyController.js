@@ -12,6 +12,7 @@ exports.get = catchAsync(async (req, res, next) => {
 
     const total = await Property.count({ ...rest });
     const properties = await Property.find({ ...rest })
+        .populate("user", "username")
         .skip(skip)
         .limit(perPage);
 
@@ -26,9 +27,17 @@ exports.get = catchAsync(async (req, res, next) => {
 
 exports.store = catchAsync(async (req, res, next) => {
     const data = req.body;
+
+    Object.keys(data).forEach(key => {
+        if (!data[key]) {
+            data[key] = undefined;
+        }
+    });
+
     const property = await Property.create(data);
     return res.json({
         success: true,
+        message: "Tạo mới sản phẩm thành công",
         entries: {
             property,
         },

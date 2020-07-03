@@ -23,8 +23,10 @@ function NullGeoComonent({ dispatch, GeoReducer }) {
   }, []);
 
   React.useEffect(() => {
-    dispatch(clearCityListAction());
-    dispatch(fetchCitiesAction(GeoReducer.selectedState._id));
+    if (GeoReducer.selectedState._id) {
+      dispatch(clearCityListAction());
+      dispatch(fetchCitiesAction(GeoReducer.selectedState._id));
+    }
   }, [GeoReducer.selectedState]);
 
   React.useEffect(() => {

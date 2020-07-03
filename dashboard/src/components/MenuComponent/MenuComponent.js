@@ -14,22 +14,30 @@ const MenuComponent = ({ sidebarOpen }) => {
     <ul className="main__menu">
       <li>
         <NavLink exact to="/">
-          <DashboardOutlined /> {sidebarOpen && <span>Bảng chính</span>}
+          <div>
+            <DashboardOutlined /> {sidebarOpen && <span>Bảng chính</span>}
+          </div>
         </NavLink>
       </li>
       <li>
         <NavLink to="/property">
-          <ApartmentOutlined /> {sidebarOpen && <span>Sản phẩm</span>}
+          <div>
+            <ApartmentOutlined /> {sidebarOpen && <span>Sản phẩm</span>}
+          </div>
         </NavLink>
       </li>
       <li>
         <NavLink to="/ads">
-          <FormOutlined /> {sidebarOpen && <span>Tin đăng</span>}
+          <div>
+            <FormOutlined /> {sidebarOpen && <span>Tin đăng</span>}
+          </div>
         </NavLink>
       </li>
       <li>
         <NavLink to="/user">
-          <UserOutlined /> {sidebarOpen && <span>Người dùng</span>}
+          <div>
+            <UserOutlined /> {sidebarOpen && <span>Người dùng</span>}
+          </div>
         </NavLink>
       </li>
     </ul>
