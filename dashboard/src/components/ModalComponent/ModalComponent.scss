@@ -1,0 +1,35 @@
+.modal__backdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  &.visible {
+    display: flex;
+  }
+
+  .modal__content {
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+
+    background-color: #fff;
+
+    .modal__header {
+      font-size: 2.6rem;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .modal__main {
+      overflow: auto;
+      height: 100%;
+      padding: 2rem;
+    }
+  }
+}

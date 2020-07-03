@@ -1,4 +1,7 @@
 module.exports = {
+    Dashboard: {
+        Index: ["super_adm", "ceo", "branch_director", "leader", "editor", "staff"],
+    },
     Ads: {
         Index: ["super_adm", "ceo", "branch_director", "leader", "editor", "staff"],
         Store: ["super_adm", "ceo", "branch_director", "leader", "editor", "staff"],

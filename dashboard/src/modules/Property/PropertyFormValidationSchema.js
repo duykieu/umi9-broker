@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 const PropertyFormValidationSchema = yup.object().shape({
-  categorySlug: yup.string("Chưa chọn danh mục").required("Chưa chọn danh mục"),
+  category: yup.string("Chưa chọn danh mục").required("Chưa chọn danh mục"),
   state: yup.string("Chưa chọn tỉnh/thành ?").required("Chưa chọn tỉnh thành"),
   city: yup.string("Chưa chọn Quận/huyện ?").required("Chưa chọn Quận/huyện"),
   ward: yup.string("Chưa chọn Phường/xã ?").required("Chưa chọn Phường/xã"),

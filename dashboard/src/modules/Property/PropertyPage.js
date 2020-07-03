@@ -9,12 +9,14 @@ import {
   ColumnsDirective,
   ColumnDirective,
 } from "@syncfusion/ej2-react-grids";
+import PropertyService from "./PropertyService";
 
 const PropertyPage = ({ dispatch }) => {
   const [state, setState] = React.useState({
     showForm: false,
     showLoading: false,
     selectedProperty: undefined,
+    gridData: [],
   });
   const loadingOn = () => {
     setState(state => ({ ...state, showLoading: true }));
@@ -26,7 +28,15 @@ const PropertyPage = ({ dispatch }) => {
 
   React.useEffect(() => {
     loadingOn();
-    dispatch(getPropertyAction()).then(loadingOff);
+    PropertyService.get()
+      .then(({ data }) => {
+        if (data.success) {
+          setState(state => ({ ...state, gridData: data.entries.properties }));
+        }
+        return;
+      })
+      .then(loadingOff)
+      .catch(loadingOff);
   }, []);
 
   const openForm = (data = undefined) => {

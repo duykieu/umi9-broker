@@ -24,7 +24,6 @@ function App({ notification, dispatch, AuthReducer }) {
   return (
     <HashRouter>
       <MainRouter />
-      <NullGeoComponent />
       <NullNotificationComponent />
     </HashRouter>
   );

@@ -32,9 +32,17 @@ import { CSSTransition } from "react-transition-group";
 import LayoutComponent from "../../components/LayoutComponent/LayoutComponent";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 import { headerCellInfo } from "@syncfusion/ej2-react-grids";
+import {
+  StateSelectionComponent,
+  CitySelectionComponent,
+  StreetSelectionComponent,
+  WardSelectionComponent,
+} from "../../components/GeoComponents/GeoComponents";
+import CategorySelectionComponent from "../../components/CategorySelectionComponent/CategorySelectionComponent";
+import ModalComponent from "../../components/ModalComponent/ModalComponent";
 
 const emptyProperty = {
-  categorySlug: "",
+  category: "",
   address: "",
   addressSlug: "",
   state: "",
@@ -70,21 +78,13 @@ const emptyProperty = {
   status: "",
 };
 
-const PropertyFormComponent = ({
-  GeoReducer,
-  PriceModelReducer,
-  CategoryReducer,
-  UserReducer,
-  dispatch,
-  visible,
-  propertyData,
-  close,
-  title,
-}) => {
+const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
   const [state, setState] = React.useState({
     formData: emptyProperty,
     showLoading: false,
   });
+
+  let formRef = React.createRef();
 
   const loadingOn = () => {
     setState(state => ({ ...state, showLoading: true }));
@@ -94,11 +94,6 @@ const PropertyFormComponent = ({
     setState(state => ({ ...state, showLoading: false }));
   };
 
-  let stateRef = ComboBoxComponent;
-  let cityRef = ComboBoxComponent;
-  let streetRef = ComboBoxComponent;
-  let wardRef = ComboBoxComponent;
-
   React.useEffect(() => {
     if (propertyData) {
       setState(state => ({ ...state, formData: propertyData }));
@@ -107,26 +102,17 @@ const PropertyFormComponent = ({
     }
   }, [propertyData]);
 
-  React.useEffect(() => {
-    Promise.all([
-      loadingOn(),
-      dispatch(getPriceModelAction()),
-      dispatch(getCategoryAction()),
-      dispatch(getUserAction({ type: "internal" })),
-    ]).then(loadingOff);
-  }, []);
-
   const onFormSubmit = (values, { resetForm }) => {
-    loadingOn();
-    dispatch(storePropertyAction(values))
-      .then(({ success }) => {
-        if (success) {
-          loadingOff();
-          return resetForm(emptyProperty);
-        }
-        return false;
-      })
-      .then(loadingOff);
+    // loadingOn();
+    // dispatch(storePropertyAction(values))
+    //   .then(({ success }) => {
+    //     if (success) {
+    //       loadingOff();
+    //       return resetForm(emptyProperty);
+    //     }
+    //     return false;
+    //   })
+    //   .then(loadingOff);
   };
 
   const formik = useFormik({
@@ -136,7 +122,7 @@ const PropertyFormComponent = ({
     onSubmit: onFormSubmit,
   });
 
-  const { errors, touched, values, setFieldValue, handleSubmit } = formik;
+  const { errors, touched, values, setFieldValue, submitForm } = formik;
 
   React.useEffect(() => {
     setFieldValue("state", "");
@@ -156,13 +142,6 @@ const PropertyFormComponent = ({
     setFieldValue("street", "");
   }, [values.city]);
 
-  const onGeoChange = (name, value, action) => {
-    (async function () {
-      setFieldValue(name, value);
-      dispatch(action(value));
-    })();
-  };
-
   React.useEffect(() => {
     setState(state => ({ ...state, formData: emptyProperty }));
   }, [state.showLoading]);
@@ -174,7 +153,8 @@ const PropertyFormComponent = ({
         isPrimary: true,
       },
       click: () => {
-        alert("Hello");
+        // submitForm();
+        formRef.hide();
       },
     },
     {
@@ -182,13 +162,14 @@ const PropertyFormComponent = ({
         content: "Huỷ bỏ",
       },
       click: () => {
-        alert("Balo");
+        formRef.hide();
       },
     },
   ];
 
   return (
-    <DialogComponent
+    <ModalComponent
+      ref={ref => (formRef = ref)}
       closeOnEscape
       close={close}
       width={1024}
@@ -206,34 +187,20 @@ const PropertyFormComponent = ({
             touched={touched["categorySlug"]}
             label="Danh mục"
           >
-            {/* <ComboBoxComponent
-              fields={{ text: "name", value: "slug" }}
-              dataSource={CategoryReducer.data}
-              allowFiltering
-              ignoreAccent
-              filterType="Contains"
-              placeholder="Vui lòng chọn"
-              change={({ value }) => setFieldValue("categorySlug", value)}
-              value={values.categorySlug}
-            /> */}
+            <CategorySelectionComponent
+              value={values.category}
+              change={({ value }) => setFieldValue("category", value)}
+            />
           </FieldComponent>
           <FieldComponent
             errors={errors["state"]}
             touched={touched["state"]}
             label="Tỉnh/thành phố"
           >
-            <Select
-              placeholder="Vui lòng chọn"
-              className="block"
+            <StateSelectionComponent
               value={values.state}
-              onChange={value => onGeoChange("state", value, setStateAction)}
-            >
-              {GeoReducer.states.map(item => (
-                <Select.Option key={item._id} value={item._id}>
-                  {item.name}
-                </Select.Option>
-              ))}
-            </Select>
+              change={({ value }) => setFieldValue("state", value)}
+            />
           </FieldComponent>
         </div>
 
@@ -243,19 +210,11 @@ const PropertyFormComponent = ({
             touched={touched["city"]}
             label="Quận/huyện"
           >
-            <Select
-              placeholder="Vui lòng chọn"
-              className="block"
+            <CitySelectionComponent
               value={values.city}
-              onChange={value => onGeoChange("city", value, setCityAction)}
-              disabled={!values.state}
-            >
-              {GeoReducer.cities.map(item => (
-                <Select.Option key={item._id} value={item._id}>
-                  {item.name}
-                </Select.Option>
-              ))}
-            </Select>
+              stateId={values.state}
+              change={({ value }) => setFieldValue("city", value)}
+            />
           </FieldComponent>
 
           <FieldComponent
@@ -263,19 +222,12 @@ const PropertyFormComponent = ({
             touched={touched["ward"]}
             label="Phường/xã"
           >
-            <Select
+            <WardSelectionComponent
+              stateId={values.state}
+              cityId={values.city}
+              change={({ value }) => setFieldValue("ward", value)}
               value={values.ward}
-              disabled={!values.city}
-              placeholder="Vui lòng chọn"
-              className="block"
-              onChange={value => onGeoChange("ward", value, setWardAction)}
-            >
-              {GeoReducer.wards.map(item => (
-                <Select.Option key={item._id} value={item._id}>
-                  {item.prefix} {item.name}
-                </Select.Option>
-              ))}
-            </Select>
+            />
           </FieldComponent>
 
           <FieldComponent
@@ -283,19 +235,12 @@ const PropertyFormComponent = ({
             error={errors["street"]}
             touched={touched["street"]}
           >
-            <Select
+            <StreetSelectionComponent
+              stateId={values.state}
+              cityId={values.city}
               value={values.street}
-              placeholder="Vui lòng chọn"
-              className="block"
-              disabled={!values.city}
-              onChange={value => onGeoChange("street", value, setStreetAction)}
-            >
-              {GeoReducer.streets.map(item => (
-                <Select.Option key={item._id} value={item._id}>
-                  {item.prefix} {item.name}
-                </Select.Option>
-              ))}
-            </Select>
+              change={({ value }) => setFieldValue("street", value)}
+            />
           </FieldComponent>
 
           <FieldComponent
@@ -324,7 +269,7 @@ const PropertyFormComponent = ({
             error={errors["priceModelCode"]}
             touched={touched["priceModelCode"]}
           >
-            <ComboBoxComponent
+            {/* <ComboBoxComponent
               value={values.priceModelCode}
               fields={{ text: "name", value: "code" }}
               dataSource={PriceModelReducer.data}
@@ -333,7 +278,7 @@ const PropertyFormComponent = ({
               filterType="Contains"
               placeholder="Vui lòng chọn"
               change={({ value }) => setFieldValue("priceModelCode", value)}
-            />
+            /> */}
           </FieldComponent>
 
           <FieldComponent
@@ -475,12 +420,12 @@ const PropertyFormComponent = ({
             error={errors["username"]}
             touched={touched["username"]}
           >
-            <UserSelectionComponent
+            {/* <UserSelectionComponent
               groups={["staff"]}
               listUsers={UserReducer.data}
               change={({ value }) => setFieldValue("username", value)}
               value={values.username}
-            />
+            /> */}
           </FieldComponent>
         </div>
 
@@ -492,12 +437,12 @@ const PropertyFormComponent = ({
             error={errors["firstContact"]}
             touched={touched["firstContact"]}
           >
-            <UserSelectionComponent
+            {/* <UserSelectionComponent
               value={values.firstContact}
               listUsers={UserReducer.data}
               groups={["host", "partner"]}
               change={({ value }) => setFieldValue("firstContact", value)}
-            />
+            /> */}
           </FieldComponent>
           <FieldComponent
             size={3}
@@ -506,11 +451,11 @@ const PropertyFormComponent = ({
             touched={touched["secondContact"]}
             value={values.secondContact}
           >
-            <UserSelectionComponent
+            {/* <UserSelectionComponent
               listUsers={UserReducer.data}
               groups={["host", "partner"]}
               change={({ value }) => setFieldValue("secondContact", value)}
-            />
+            /> */}
           </FieldComponent>
           <FieldComponent
             size={3}
@@ -535,7 +480,7 @@ const PropertyFormComponent = ({
           >
             <Input.TextArea
               value={values.description}
-              onChange={({ value }) => setFieldValue("description", value)}
+              // onChange={({ value }) => setFieldValue("description", value)}
             />
           </FieldComponent>
         </div>
@@ -549,20 +494,8 @@ const PropertyFormComponent = ({
           />
         </div>
       </div>
-    </DialogComponent>
+    </ModalComponent>
   );
 };
 
-const mapStateToProps = ({
-  GeoReducer,
-  PriceModelReducer,
-  CategoryReducer,
-  UserReducer,
-}) => ({
-  GeoReducer,
-  PriceModelReducer,
-  CategoryReducer,
-  UserReducer,
-});
-
-export default connect(mapStateToProps)(PropertyFormComponent);
+export default PropertyFormComponent;

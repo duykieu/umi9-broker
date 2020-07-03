@@ -60,7 +60,7 @@ const UserSelectionComponent = ({ listUsers, groups, change }) => {
   const formFail = () => {};
 
   return (
-    <React.Fragment>
+    <div>
       <ComboBoxComponent
         dataSource={users}
         allowFiltering={true}
@@ -80,7 +80,7 @@ const UserSelectionComponent = ({ listUsers, groups, change }) => {
         onSuccess={onSuccess}
         groups={groups}
       />
-    </React.Fragment>
+    </div>
   );
 };
 export default UserSelectionComponent;

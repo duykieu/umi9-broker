@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect, withRouter } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 function PrivateRoute({
   component: Component,
@@ -24,12 +24,8 @@ function PrivateRoute({
   return (
     <Route
       {...rest}
-      render={(props) => {
-        return isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
-        );
+      render={props => {
+        return isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />;
       }}
     />
   );
@@ -37,4 +33,4 @@ function PrivateRoute({
 
 const mapStateToProps = ({ AuthReducer }) => ({ AuthReducer });
 
-export default withRouter(connect(mapStateToProps)(PrivateRoute));
+export default connect(mapStateToProps)(PrivateRoute);

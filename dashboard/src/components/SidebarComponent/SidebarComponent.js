@@ -10,11 +10,11 @@ const Sidebar = ({ sidebarOpen }) => {
   return (
     <div className="sidebar__content">
       <div className="sidebar__content--logo">
-        {sidebarOpen && (
+        {/* {sidebarOpen && (
           <Link to="/">
             <img src={Logo} />
           </Link>
-        )}
+        )} */}
       </div>
       <MenuComponent sidebarOpen={sidebarOpen} />
     </div>
