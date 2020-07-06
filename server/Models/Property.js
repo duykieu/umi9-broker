@@ -8,26 +8,26 @@ const PropertySchema = new mongoose.Schema({
     address: {
         type: String,
     },
-    stateId: {
+    state: {
         type: mongoose.Types.ObjectId,
         ref: "State",
         required: true,
     },
-    cityId: {
+    city: {
         type: mongoose.Types.ObjectId,
         ref: "City",
         required: true,
     },
-    projectId: {
+    project: {
         type: mongoose.Types.ObjectId,
         ref: "Project",
     },
-    streetId: {
+    street: {
         type: mongoose.Types.ObjectId,
         ref: "Street",
         required: true,
     },
-    wardId: {
+    ward: {
         type: mongoose.Types.ObjectId,
         ref: "Ward",
         required: true,

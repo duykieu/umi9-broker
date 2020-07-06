@@ -25,6 +25,7 @@ router.route("/project/:stateId/:cityId").get(ProjectController.get);
 
 // router.use(AuthController.protect);
 router.route("/user").get(UserController.get).post(UserController.store);
+router.route("/user/autoComplete").post(UserController.autoComplete);
 
 //Geo edit
 router.post("/state", StateController.store);

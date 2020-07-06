@@ -31,5 +31,18 @@
       height: 100%;
       padding: 2rem;
     }
+
+    .modal__close__button {
+      cursor: pointer;
+    }
+
+    .modal__footer {
+      padding: 2rem 1.5rem;
+      text-align: right;
+
+      &__button:not(:last-child) {
+        margin-right: 1.5rem;
+      }
+    }
   }
 }

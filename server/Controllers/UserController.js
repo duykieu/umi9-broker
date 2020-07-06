@@ -4,6 +4,52 @@ const User = require("../Models/User");
 const pagination = require("../Helpers/pagination");
 
 exports.get = catchAsync(async (req, res, next) => {
+    let { page, perPage, type, search, ...rest } = req.query;
+    let typeQuery = {};
+    let keywords = {};
+    if (type === "internal") {
+        typeQuery = {
+            userGroup: {
+                $ne: "member",
+            },
+        };
+    }
+
+    if (search) {
+        keywords = {
+            username: {
+                $regex: new RegExp(`${search}`),
+            },
+        };
+    }
+
+    if (page && perPage) {
+        page = Math.abs(page) || 1; //2
+        perPage = Math.abs(perPage) || 15; //10
+        const skip = Math.abs(page) * Math.abs(perPage) - 15 || 0; //10
+
+        const users = await User.find({ ...rest, ...typeQuery, ...keywords })
+            .skip(skip)
+            .limit(perPage);
+        return res.json({
+            success: true,
+            entries: {
+                meta: pagination(page, perPage, users.length),
+                users,
+            },
+        });
+    } else {
+        const users = await User.find({ ...typeQuery, ...keywords });
+        return res.json({
+            success: true,
+            entries: {
+                users,
+            },
+        });
+    }
+});
+
+exports.autoComplete = catchAsync(async (req, res, next) => {
     let { page, perPage, type, ...rest } = req.query;
     let typeQuery = {};
     if (type === "internal") {
@@ -32,10 +78,8 @@ exports.get = catchAsync(async (req, res, next) => {
     } else {
         const users = await User.find({ ...typeQuery });
         return res.json({
-            success: true,
-            entries: {
-                users,
-            },
+            result: users,
+            count: users.length,
         });
     }
 });

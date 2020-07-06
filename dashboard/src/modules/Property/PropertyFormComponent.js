@@ -40,9 +40,15 @@ import {
 } from "../../components/GeoComponents/GeoComponents";
 import CategorySelectionComponent from "../../components/CategorySelectionComponent/CategorySelectionComponent";
 import ModalComponent from "../../components/ModalComponent/ModalComponent";
+import PriceModelSelectionComponent from "../../components/PriceModelSelectionController/PriceModelSelectionComponent";
+import PropertyService from "./PropertyService";
+import {
+  setErrorNotification,
+  setSuccessNotification,
+} from "../../actions/NotificationAction";
 
 const emptyProperty = {
-  category: "",
+  categorySlug: "",
   address: "",
   addressSlug: "",
   state: "",
@@ -78,7 +84,7 @@ const emptyProperty = {
   status: "",
 };
 
-const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
+const PropertyFormComponent = ({ visible, propertyData, close, title, dispatch }) => {
   const [state, setState] = React.useState({
     formData: emptyProperty,
     showLoading: false,
@@ -103,16 +109,20 @@ const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
   }, [propertyData]);
 
   const onFormSubmit = (values, { resetForm }) => {
-    // loadingOn();
-    // dispatch(storePropertyAction(values))
-    //   .then(({ success }) => {
-    //     if (success) {
-    //       loadingOff();
-    //       return resetForm(emptyProperty);
-    //     }
-    //     return false;
-    //   })
-    //   .then(loadingOff);
+    loadingOn();
+    PropertyService.store(values)
+      .then(({ data }) => {
+        if (data.success) {
+          resetForm(emptyProperty);
+          return dispatch(setSuccessNotification("Thêm sản phẩm thành công"));
+        }
+        return dispatch(setErrorNotification(data.message));
+      })
+      .then(loadingOff)
+      .catch(error => {
+        dispatch(setErrorNotification(error.message));
+        loadingOff();
+      });
   };
 
   const formik = useFormik({
@@ -122,7 +132,7 @@ const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
     onSubmit: onFormSubmit,
   });
 
-  const { errors, touched, values, setFieldValue, submitForm } = formik;
+  const { errors, touched, values, setFieldValue, handleSubmit } = formik;
 
   React.useEffect(() => {
     setFieldValue("state", "");
@@ -151,25 +161,21 @@ const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
       buttonModel: {
         content: "Lưu lại",
         isPrimary: true,
+        type: "submit",
       },
-      click: () => {
-        // submitForm();
-        formRef.hide();
-      },
+      click: handleSubmit,
     },
     {
       buttonModel: {
         content: "Huỷ bỏ",
+        type: "button",
       },
-      click: () => {
-        formRef.hide();
-      },
+      click: close,
     },
   ];
 
   return (
     <ModalComponent
-      ref={ref => (formRef = ref)}
       closeOnEscape
       close={close}
       width={1024}
@@ -188,8 +194,8 @@ const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
             label="Danh mục"
           >
             <CategorySelectionComponent
-              value={values.category}
-              change={({ value }) => setFieldValue("category", value)}
+              value={values.categorySlug}
+              change={({ value }) => setFieldValue("categorySlug", value)}
             />
           </FieldComponent>
           <FieldComponent
@@ -269,16 +275,10 @@ const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
             error={errors["priceModelCode"]}
             touched={touched["priceModelCode"]}
           >
-            {/* <ComboBoxComponent
+            <PriceModelSelectionComponent
               value={values.priceModelCode}
-              fields={{ text: "name", value: "code" }}
-              dataSource={PriceModelReducer.data}
-              allowFiltering
-              ignoreAccent
-              filterType="Contains"
-              placeholder="Vui lòng chọn"
               change={({ value }) => setFieldValue("priceModelCode", value)}
-            /> */}
+            />
           </FieldComponent>
 
           <FieldComponent
@@ -420,12 +420,11 @@ const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
             error={errors["username"]}
             touched={touched["username"]}
           >
-            {/* <UserSelectionComponent
+            <UserSelectionComponent
               groups={["staff"]}
-              listUsers={UserReducer.data}
               change={({ value }) => setFieldValue("username", value)}
-              value={values.username}
-            /> */}
+              inputValue={values.username}
+            />
           </FieldComponent>
         </div>
 
@@ -437,12 +436,11 @@ const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
             error={errors["firstContact"]}
             touched={touched["firstContact"]}
           >
-            {/* <UserSelectionComponent
-              value={values.firstContact}
-              listUsers={UserReducer.data}
+            <UserSelectionComponent
+              inputValue={values.firstContact}
               groups={["host", "partner"]}
               change={({ value }) => setFieldValue("firstContact", value)}
-            /> */}
+            />
           </FieldComponent>
           <FieldComponent
             size={3}
@@ -451,11 +449,11 @@ const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
             touched={touched["secondContact"]}
             value={values.secondContact}
           >
-            {/* <UserSelectionComponent
-              listUsers={UserReducer.data}
+            <UserSelectionComponent
               groups={["host", "partner"]}
               change={({ value }) => setFieldValue("secondContact", value)}
-            /> */}
+              inputValue={values.secondContact}
+            />
           </FieldComponent>
           <FieldComponent
             size={3}
@@ -480,7 +478,7 @@ const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
           >
             <Input.TextArea
               value={values.description}
-              // onChange={({ value }) => setFieldValue("description", value)}
+              onChange={({ value }) => setFieldValue("description", value)}
             />
           </FieldComponent>
         </div>
@@ -498,4 +496,4 @@ const PropertyFormComponent = ({ visible, propertyData, close, title }) => {
   );
 };
 
-export default PropertyFormComponent;
+export default connect()(PropertyFormComponent);
