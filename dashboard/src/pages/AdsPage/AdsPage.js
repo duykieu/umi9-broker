@@ -1,6 +1,8 @@
 import React from "react";
 import LayoutComponent from "../../components/LayoutComponent/LayoutComponent";
 
+import "../../styles/main.scss";
+
 const AdsPage = () => {
   return (
     <LayoutComponent addItemLink="/ads/add" pageTitle="Quản lý tin đăng">

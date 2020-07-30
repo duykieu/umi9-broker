@@ -1,0 +1,63 @@
+@import "../../styles/main.scss";
+
+.top__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
+  height: 4.5rem;
+  border-bottom: 1px solid $gray-400;
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  background-color: $white;
+
+  button {
+    background-color: transparent;
+    color: $gray-800;
+    border: none;
+    margin-right: 1rem;
+    outline: none;
+    padding: 0.5rem;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:active,
+    &:visited {
+      outline: none;
+      border: none;
+    }
+    svg {
+      fill: $gray-800;
+    }
+  }
+
+  a {
+    background-color: transparent;
+    color: $gray-800;
+    border: none;
+    margin-right: 1rem;
+    outline: none;
+    padding: 0.5rem;
+    font-size: 2rem;
+  }
+
+  &-center {
+    width: 50%;
+  }
+
+  &-left {
+    display: flex;
+    align-items: center;
+    .page__title {
+      font-size: 2.6rem;
+      margin-bottom: 0;
+    }
+  }
+
+  &-right {
+    display: flex;
+  }
+}

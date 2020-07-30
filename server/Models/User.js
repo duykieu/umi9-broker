@@ -9,12 +9,6 @@ const UserSchema = new mongoose.Schema({
     displayName: {
         type: String,
     },
-    username: {
-        type: String,
-        unique: true,
-        lowercase: true,
-        required: true,
-    },
     phoneNumber: {
         type: String,
         unique: true,
@@ -24,6 +18,7 @@ const UserSchema = new mongoose.Schema({
             validator: value => /((09|03|07|08|05)+([0-9]{8})\b)/g.test(value),
         },
     },
+    keywords: String,
     subPhoneNumber: {
         type: String,
         lowercase: true,

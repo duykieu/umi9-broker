@@ -4,19 +4,19 @@ import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
 import Logo from "../../statics/logo.png";
 import { Link } from "react-router-dom";
 
-const Sidebar = ({ sidebarOpen }) => {
-  if (!sidebarOpen) return null;
+import "./SidebarComponent.scss";
 
+const Sidebar = ({ visible }) => {
   return (
-    <div className="sidebar__content">
-      <div className="sidebar__content--logo">
-        {/* {sidebarOpen && (
+    <div className={`sidebar__content ${visible && "active"}`}>
+      <div className="sidebar__content-inner">
+        <div className="sidebar__content--logo">
           <Link to="/">
             <img src={Logo} />
           </Link>
-        )} */}
+        </div>
+        <MenuComponent />
       </div>
-      <MenuComponent sidebarOpen={sidebarOpen} />
     </div>
   );
 };

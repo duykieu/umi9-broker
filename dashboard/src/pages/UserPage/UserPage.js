@@ -84,7 +84,7 @@ const UserPage = ({ UserReducer, dispatch }) => {
 
   return (
     <LayoutComponent addItemButton={openForm} pageTitle="Quản lý người dùng">
-      <GridComponent
+      {/* <GridComponent
         commandClick={commandClick}
         allowSorting
         allowFiltering
@@ -115,7 +115,7 @@ const UserPage = ({ UserReducer, dispatch }) => {
           />
         </ColumnsDirective>
         <Inject services={[Page, Sort, Filter, CommandColumn]} />
-      </GridComponent>
+      </GridComponent> */}
       <UserFormComponent
         model="user"
         title="Thêm người dùng"

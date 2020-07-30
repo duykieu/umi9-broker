@@ -48,6 +48,7 @@ import {
 } from "../../actions/NotificationAction";
 
 const emptyProperty = {
+  isEmpty: true,
   categorySlug: "",
   address: "",
   addressSlug: "",
@@ -72,8 +73,12 @@ const emptyProperty = {
   description: "",
   structure: "",
   commission: "",
+  paperModel: "",
   tags: "",
   images: [],
+
+  firstContactPhoneNumber: "",
+  secondContactPhoneNumber: "",
 
   //User
   username: "",
@@ -88,7 +93,12 @@ const PropertyFormComponent = ({ visible, propertyData, close, title, dispatch }
   const [state, setState] = React.useState({
     formData: emptyProperty,
     showLoading: false,
+    resetImage: false,
   });
+
+  const imageResetCompleteHandler = () => {
+    setState(state => ({ ...state, resetImage: false }));
+  };
 
   let formRef = React.createRef();
 
@@ -114,6 +124,7 @@ const PropertyFormComponent = ({ visible, propertyData, close, title, dispatch }
       .then(({ data }) => {
         if (data.success) {
           resetForm(emptyProperty);
+          setState(state => ({ ...state, resetImage: true }));
           return dispatch(setSuccessNotification("Thêm sản phẩm thành công"));
         }
         return dispatch(setErrorNotification(data.message));
@@ -433,26 +444,26 @@ const PropertyFormComponent = ({ visible, propertyData, close, title, dispatch }
           <FieldComponent
             size={3}
             label="Liên hệ 1"
-            error={errors["firstContact"]}
-            touched={touched["firstContact"]}
+            error={errors["firstContactPhoneNumber"]}
+            touched={touched["firstContactPhoneNumber"]}
           >
             <UserSelectionComponent
-              inputValue={values.firstContact}
+              inputValue={values.firstContactPhoneNumber}
               groups={["host", "partner"]}
-              change={({ value }) => setFieldValue("firstContact", value)}
+              change={({ value }) => setFieldValue("firstContactPhoneNumber", value)}
             />
           </FieldComponent>
           <FieldComponent
             size={3}
             label="Liên hệ 2"
-            error={errors["secondContact"]}
-            touched={touched["secondContact"]}
-            value={values.secondContact}
+            error={errors["secondContactPhoneNumber"]}
+            touched={touched["secondContactPhoneNumber"]}
+            value={values.secondContactPhoneNumber}
           >
             <UserSelectionComponent
               groups={["host", "partner"]}
-              change={({ value }) => setFieldValue("secondContact", value)}
-              inputValue={values.secondContact}
+              change={({ value }) => setFieldValue("secondContactPhoneNumber", value)}
+              inputValue={values.secondContactPhoneNumber}
             />
           </FieldComponent>
           <FieldComponent
@@ -486,6 +497,8 @@ const PropertyFormComponent = ({ visible, propertyData, close, title, dispatch }
         <div className="form__group">
           <label>Chọn hình ảnh</label>
           <ImageComponent
+            onImageResetComplete={imageResetCompleteHandler}
+            resetImage={state.resetImage}
             change={imageIds => {
               setFieldValue("images", imageIds);
             }}

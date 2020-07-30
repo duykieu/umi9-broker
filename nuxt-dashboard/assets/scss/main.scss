@@ -1,0 +1,11 @@
+@import "abstracts/mixins";
+@import "abstracts/variables";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "./base/base";
+@import "./base/form";
+
+@import "components/components";
+
+html {
+    font-size: 62.5% !important;
+}

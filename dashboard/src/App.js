@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { HashRouter } from "react-router-dom";
 import axios from "axios";
-import "./App.scss";
+import "./styles/main.scss";
 import MainRouter from "./routes/MainRouter";
 import NullGeoComponent from "./components/NullGeoComponent";
 import NullNotificationComponent from "./components/NullNotification";

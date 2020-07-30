@@ -3,7 +3,7 @@ import React from "react";
 import { ComboBoxComponent } from "@syncfusion/ej2-react-dropdowns";
 import GeoService from "../../services/GeoService";
 
-export const StateSelectionComponent = ({ change }) => {
+export const StateSelectionComponent = ({ change, value }) => {
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
@@ -19,6 +19,7 @@ export const StateSelectionComponent = ({ change }) => {
       change={change}
       fields={{ text: "name", value: "_id" }}
       dataSource={data}
+      value={value}
     />
   );
 };
@@ -27,6 +28,7 @@ export const CitySelectionComponent = ({ stateId, change, value }) => {
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
+    change({ value: "" });
     if (!!stateId) {
       GeoService.fetchCities(stateId).then(({ data }) => {
         if (data.success) {
@@ -51,12 +53,15 @@ export const StreetSelectionComponent = ({ stateId, cityId, change, value }) => 
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
+    change({ value: "" });
     if (!!cityId && !!stateId) {
       GeoService.fetchStreets({ stateId, cityId }).then(({ data }) => {
         if (data.success) {
           setData(data.entries.streets);
         }
       });
+    } else {
+      setData([]);
     }
   }, [cityId, stateId]);
 
@@ -75,6 +80,7 @@ export const WardSelectionComponent = ({ stateId, cityId, change, value }) => {
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
+    change({ value: "" });
     if (!!cityId && !!stateId) {
       GeoService.fetchWards({ stateId, cityId }).then(({ data }) => {
         if (data.success) {

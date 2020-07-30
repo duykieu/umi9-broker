@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Street = require("./Street");
 
 const PropertySchema = new mongoose.Schema({
     categorySlug: {
@@ -50,31 +51,28 @@ const PropertySchema = new mongoose.Schema({
     numOfWcs: Number,
     direction: String,
     paperModel: String,
+    structure: String,
     description: String,
     tags: [String],
     images: [String],
 
     //User
-    createdUsername: {
+    createdUserPhoneNumber: {
         type: String,
         ref: "User",
     },
-    updatedUsername: {
-        type: String,
-        ref: "User",
-    },
-    username: {
+    updatedUserPhoneNumber: {
         type: String,
         ref: "User",
     },
     createdAt: Date,
     updatedAt: Date,
-    firstContactUsername: {
+    firstContactPhoneNumber: {
         //The host or partner or staff
         type: String,
         ref: "User",
     },
-    secondContactUsername: {
+    secondContactPhoneNumber: {
         //The host or partner or staff
         type: String,
         ref: "User",
@@ -86,6 +84,22 @@ const PropertySchema = new mongoose.Schema({
         enum: ["ok", "hide", "deleted", "out"],
         default: "ok",
     },
+});
+
+PropertySchema.set("toJSON", { virtuals: true });
+PropertySchema.set("toObject", { virtuals: true });
+
+PropertySchema.virtual("category", {
+    ref: "Category",
+    localField: "categorySlug",
+    foreignField: "slug",
+    justOne: true,
+});
+
+PropertySchema.virtual("fullAddress").get(function () {
+    return `${
+        (this.address && this.address + " ") || ""
+    }${this.street.prefix} ${this.street.name}, ${this.ward.prefix} ${this.ward.name}, ${this.city.name}`;
 });
 
 module.exports = mongoose.model("Property", PropertySchema);

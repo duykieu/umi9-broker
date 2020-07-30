@@ -1,19 +1,29 @@
+@import "../../styles/main.scss";
 .main__menu {
+  list-style-type: none;
+  padding: 0;
   li {
     a {
-      padding: 0.8rem 1rem;
-      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
       display: block;
       text-decoration: none;
       font-size: 1.6rem;
       color: #ccc;
       height: 3.4rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      transition: all 0.3s;
+      span {
+        margin-right: 1rem;
+      }
 
       div {
         transition: all 300ms;
       }
-      &:hover div {
+      &:hover {
         margin-top: -2px;
+        color: $white;
       }
       &:active {
         margin-top: -1px;

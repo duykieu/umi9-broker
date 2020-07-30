@@ -1,6 +1,7 @@
 const { mysqlConn, mongoConn } = require("./db");
-const User = require("../Models/User");
+const User = require("../../Models/User");
 const { parseDate, phonePattern } = require("./helpers");
+const { toSlug } = require("../../Helpers/utils");
 const Validator = require("validator");
 
 const convertUserGroup = groupId => {
@@ -48,8 +49,12 @@ mysqlConn.query("Select * from users", (error, docs) => {
                         arrayToInsert.push({
                             fullName: doc.name,
                             displayName: doc.display_name,
-                            username: phone_number,
                             email: doc.email,
+                            keywords: toSlug(
+                                `${doc.name && doc.name} ${doc.display_name && doc.display_name} ${
+                                    doc.phone_number
+                                } ${doc.email}`
+                            ).toLowerCase(),
                             password: doc.password,
                             passwordConfirm: doc.password,
                             phoneNumber: phone_number,
@@ -64,7 +69,6 @@ mysqlConn.query("Select * from users", (error, docs) => {
                         missingPhone.push({
                             fullName: doc.name,
                             displayName: doc.display_name,
-                            username: doc.phone_number,
                             email: doc.email,
                             password: doc.password,
                             passwordConfirm: doc.password,

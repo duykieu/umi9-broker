@@ -76,6 +76,8 @@ exports.login = catchAsync(async (req, res, next) => {
         $or: [{ email: username }, { phoneNumber: username }, { username }],
     }).select("+password");
 
+    console.log({ user });
+
     if (!user || !(await user.correctPassword(password, user.password))) {
         return next(new AppError("Mật khẩu không đúng", 401));
     }

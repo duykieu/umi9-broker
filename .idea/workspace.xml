@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="217a0f29-a997-41de-b75f-c68195856688" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/nuxt-dashboard/assets/scss/abstracts/_abstracts.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nuxt-dashboard/assets/scss/abstracts/_mixins.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nuxt-dashboard/assets/scss/main.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nuxt-dashboard/components/form/Input.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nuxt-dashboard/pages/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/App.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/FieldComponent/FieldComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/FieldComponent/FieldComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/FieldComponent/FieldComponent.scss" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/FieldComponent/FieldComponent.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/GeoComponents/GeoComponents.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/GeoComponents/GeoComponents.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/ImageComponent/ImageComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/ImageComponent/ImageComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/LayoutComponent/LayoutComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/LayoutComponent/LayoutComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/LayoutComponent/LayoutStyle.scss" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/LayoutComponent/LayoutStyle.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/MenuComponent/MenuComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/MenuComponent/MenuComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/MenuComponent/MenuComponentStyle.scss" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/MenuComponent/MenuComponentStyle.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/ModalComponent/ModalComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/ModalComponent/ModalComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/SidebarComponent/SidebarComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/SidebarComponent/SidebarComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/components/UserSelectionComponent/UserSelectionComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/components/UserSelectionComponent/UserSelectionComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/modules/Property/PropertyFormComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/modules/Property/PropertyFormComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/modules/Property/PropertyFormValidationSchema.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/modules/Property/PropertyFormValidationSchema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/modules/Property/PropertyPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/modules/Property/PropertyPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/modules/Property/PropertyService.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/modules/Property/PropertyService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/modules/Property/PropertyStyles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/modules/Property/PropertyStyles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/pages/AdsPage/AdsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/pages/AdsPage/AdsPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/pages/LoginPage/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/pages/LoginPage/LoginPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/pages/LoginPage/LoginPage.scss" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/pages/LoginPage/LoginPage.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/src/pages/UserPage/UserPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/src/pages/UserPage/UserPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Controllers/AuthController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Controllers/AuthController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Controllers/PropertyController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Controllers/PropertyController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Controllers/UserController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Controllers/UserController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Database/converts/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Database/converts/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Database/converts/property.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Database/converts/property.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Database/converts/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Database/converts/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Database/converts/userFromProperies.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Database/converts/userFromProperies.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Database/seeds/geo.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Database/seeds/geo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Helpers/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Helpers/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Models/Property.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Models/Property.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Models/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routers.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routers.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1fGs3DpGWTurdbhvPlg7F2mJ8PE" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="editorconfig.notification" value="auto" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="settings.saveactions" />
+    <property name="vuejs.nuxt.types-notification-shown" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="217a0f29-a997-41de-b75f-c68195856688" name="Default Changelist" comment="" />
+      <created>1595855562319</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1595855562319</updated>
+      <workItem from="1595855563380" duration="860000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="469" y="223" key="SettingsEditor" timestamp="1595856359664">
+      <screen x="0" y="23" width="1920" height="1123" />
+    </state>
+    <state x="469" y="223" key="SettingsEditor/0.23.1920.1123@0.23.1920.1123" timestamp="1595856359664" />
+  </component>
+</project>

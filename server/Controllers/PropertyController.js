@@ -4,24 +4,151 @@ const Property = require("../Models/Property");
 const pagination = require("../Helpers/pagination");
 
 exports.get = catchAsync(async (req, res, next) => {
-    let { page, perPage, ...rest } = req.query;
+    let { $skip, $top, $filter, ...rest } = req.query;
 
-    page = Math.abs(page) || 1; //2
-    perPage = Math.abs(perPage) || 10; //10
-    const skip = Math.abs(page) * Math.abs(perPage) - 10 || 0; //10
+    $filter = JSON.parse($filter);
 
-    const total = await Property.count({ ...rest });
-    const properties = await Property.find({ ...rest })
-        .populate("user", "username")
-        .skip(skip)
-        .limit(perPage);
+    const filterCondition = {};
+    if ($filter.state) filterCondition.state = $filter.state;
+    if ($filter.city) filterCondition.city = $filter.city;
+    if ($filter.street) filterCondition.street = $filter.street;
+    if ($filter.ward) filterCondition.ward = $filter.ward;
+    const filterWidth = [];
+    if ($filter.width && $filter.width instanceof Array) {
+        if ($filter.width[0] > 0 && $filter.width[1] === 100) {
+            filterCondition.width = { $gte: $filter.width[0] };
+        }
+        if ($filter.width[1] < 100 && $filter.width[0] === 0) {
+            filterCondition.width = { $lte: $filter.width[1] };
+        }
+        if ($filter.width[0] > 0 && $filter.width[1] < 100) {
+            filterCondition.$and = [
+                { width: { $gte: $filter.width[0] } },
+                { width: { $lte: $filter.width[1] } },
+            ];
+        }
+    }
+
+    // if ($filter.width && $filter.width instanceof Array && $filter.width[0] > 0) {
+    //     filterWidth.push({ width: { $gt: $filter.width[0] } });
+    // }
+    // if ($filter.width && $filter.width instanceof Array && $filter.width[1] < 100) {
+    //     filterWidth.push({ width: { $lt: $filter.width[1] } });
+    // }
+
+    // if (
+    //     ($filter.width && $filter.width instanceof Array && $filter.width[0] > 0) ||
+    //     $filter.width[1] < 100
+    // ) {
+    //     filterCondition.width = { $and: [] };
+    // }
+
+    console.log({ filterWidth });
+
+    $top = Math.abs($top) || 15; //10
+    $skip = Math.abs($skip) || 0; //10
+
+    const numOfDocs = await Property.countDocuments({ ...filterCondition });
+    let properties;
+    properties = await Property.find({ ...filterCondition })
+        .populate("state")
+        .populate("city")
+        .populate("street")
+        .populate("ward")
+        .populate("category")
+        .skip($skip)
+        .limit($top);
+
+    const gridItems = properties.map(
+        ({
+            fullAddress,
+            _id,
+            category,
+            width,
+            long,
+            landSize,
+            behindWidth,
+            gfa,
+            numOfBeds,
+            numOfWcs,
+            structure,
+            state,
+        }) => ({
+            fullAddress,
+            id: _id,
+            category: category.name,
+            width,
+            long,
+            landSize,
+            behindWidth,
+            gfa,
+            numOfBeds,
+            numOfWcs,
+            structure,
+            state: state.name,
+        })
+    );
 
     return res.json({
         success: true,
         entries: {
-            meta: pagination(page, perPage, total),
-            properties,
+            meta: {
+                numOfDocs,
+                numOfPages:
+                    numOfDocs % $top === 0 ? numOfDocs / $top : Math.floor(numOfDocs / $top + 1),
+                currentPage: $skip / $top,
+            },
+            properties: gridItems,
         },
+    });
+});
+
+exports.grid = catchAsync(async (req, res, next) => {
+    const { $inlinecount, $skip, $top } = req.query;
+
+    const itemCount = await Property.countDocuments();
+    const properties = await Property.find()
+        .populate("state")
+        .populate("city")
+        .populate("street")
+        .populate("ward")
+        .populate("category")
+        .skip(Number($skip))
+        .limit(Number($top));
+
+    const gridItems = properties.map(
+        ({
+            fullAddress,
+            _id,
+            category,
+            width,
+            long,
+            landSize,
+            behindWidth,
+            gfa,
+            numOfBeds,
+            numOfWcs,
+            structure,
+            state,
+        }) => ({
+            fullAddress,
+            id: _id,
+            category: category.name,
+            width,
+            long,
+            landSize,
+            behindWidth,
+            gfa,
+            numOfBeds,
+            numOfWcs,
+            structure,
+            state: state.name,
+        })
+    );
+
+    return res.json({
+        Items: gridItems,
+        Count: itemCount,
     });
 });
 

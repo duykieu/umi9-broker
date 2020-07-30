@@ -21,8 +21,8 @@ const PropertyFormValidationSchema = yup.object().shape({
   direction: yup.string("Hướng không đúng").nullable(),
   paperModel: yup.string("Pháp lý không đúng").nullable(),
   username: yup.string("Thiếu thông tin nhân viên").required("Thiếu thông tin nhân viên"),
-  firstContactUsername: yup.string("Thiếu thông tin liên hệ").nullable(),
-  secondContactUsername: yup.string("Thiếu thông tin liên hệ").nullable(),
+  firstContactPhoneNumber: yup.string("Thiếu thông tin liên hệ").nullable(),
+  secondContactPhoneNumber: yup.string("Thiếu thông tin liên hệ").nullable(),
   commission: yup.string("Thiếu thông tin hoa hồng").required("Thiếu thông tin hoa hồng"),
   description: yup.string("Mô tả không đúng định dạng").nullable(),
 });

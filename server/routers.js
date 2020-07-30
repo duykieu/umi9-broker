@@ -44,6 +44,7 @@ router
 
 //Property
 router.route("/property").get(PropertyController.get).post(PropertyController.store);
+router.route("/property/grid").post(PropertyController.grid);
 router
     .route("/property/:id")
     .get(PropertyController.show)

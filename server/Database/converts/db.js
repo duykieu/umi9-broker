@@ -15,8 +15,8 @@ exports.mongoConn = mongoose
     .catch(console.log);
 
 exports.mysqlConn = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Kieu@123123",
+    host: "35.189.171.209",
+    user: "matbangsaigon",
+    password: "RbZATddX2amDuQHpOFoL3rMfkfuoQCkDyKtZHcwMbtbS",
     database: "matbangsaigon",
 });

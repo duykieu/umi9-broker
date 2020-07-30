@@ -1,10 +1,11 @@
 const { mysqlConn, mongoConn } = require("./db");
-const User = require("../Models/User");
+const User = require("../../Models/User");
 const { parseDate, phonePattern } = require("./helpers");
 const Validator = require("validator");
 const axios = require("axios");
 const faker = require("faker");
-const RegexLib = require("../Libs/regex");
+const RegexLib = require("../../Libs/regex");
+const { toSlug } = require("../../Helpers/utils");
 
 axios.get("http://localhost:8888/properties").then(async ({ data }) => {
     //Creating user
@@ -23,8 +24,12 @@ axios.get("http://localhost:8888/properties").then(async ({ data }) => {
         ) {
             userFromHostsPartners[item.owner_phone_1] = {
                 fullName: item.owner_name_1 && item.owner_name_1,
-                username: item.owner_phone_1,
                 phoneNumber: item.owner_phone_1,
+                keywords: toSlug(
+                    `${item.owner_name_1 && item.owner_name_1} ${item.owner_phone_1} ${
+                        item.owner_phone_1 + "@" + process.env.BASE_DOMAIN
+                    }`
+                ).toLowerCase(),
                 email: item.owner_phone_1 + "@" + process.env.BASE_DOMAIN,
                 password,
                 passwordConfirm: password,
@@ -38,8 +43,12 @@ axios.get("http://localhost:8888/properties").then(async ({ data }) => {
         ) {
             userFromHostsPartners[item.owner_phone_2] = {
                 fullName: item.owner_name_2 && item.owner_name_2,
-                username: item.owner_phone_2,
                 phoneNumber: item.owner_phone_2,
+                keywords: toSlug(
+                    `${item.owner_name_2 && item.owner_name_2} ${item.owner_phone_2} ${
+                        item.owner_phone_2 + "@" + process.env.BASE_DOMAIN
+                    }`
+                ).toLowerCase(),
                 email: item.owner_phone_2 + "@" + process.env.BASE_DOMAIN,
                 password,
                 passwordConfirm: password,

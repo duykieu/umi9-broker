@@ -1,24 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import {
-  ApartmentOutlined,
-  DashboardOutlined,
-  UserOutlined,
-  FormOutlined,
-} from "@ant-design/icons";
+import { ApartmentOutlined } from "@ant-design/icons";
 
 import "./MenuComponentStyle.scss";
 import routesList from "../../routes/routesList";
 
-const MenuComponent = ({ sidebarOpen }) => {
+const MenuComponent = () => {
   return (
     <ul className="main__menu">
       {routesList.map(route => (
         <li key={route.path}>
-          <NavLink to={route.path}>
-            <div>
-              <ApartmentOutlined /> {sidebarOpen && <span>{route.label}</span>}
-            </div>
+          <NavLink to={route.path} exact={route.exact}>
+            <ApartmentOutlined /> {route.label}
           </NavLink>
         </li>
       ))}

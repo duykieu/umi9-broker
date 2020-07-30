@@ -12,7 +12,14 @@ function getBase64(file) {
   });
 }
 
-const ImageComponent = ({ listOfFiles, change, AuthReducer }) => {
+const ImageComponent = ({
+  listOfFiles,
+  change,
+  AuthReducer,
+  isEmpty,
+  resetImage,
+  onImageResetComplete,
+}) => {
   const [state, setState] = React.useState({
     previewVisible: false,
     previewImage: "",
@@ -53,6 +60,13 @@ const ImageComponent = ({ listOfFiles, change, AuthReducer }) => {
       <div className="ant-upload-text">Upload</div>
     </div>
   );
+
+  React.useEffect(() => {
+    if (resetImage) {
+      setState(state => ({ ...state, fileList: [] }));
+      onImageResetComplete();
+    }
+  }, [resetImage]);
 
   return (
     <div className="clearfix">

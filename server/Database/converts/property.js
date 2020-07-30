@@ -1,15 +1,19 @@
 const { mysqlConn, mongoConn } = require("./db");
-const User = require("../Models/User");
+const User = require("../../Models/User");
 const { parseDate, phonePattern } = require("./helpers");
 const Validator = require("validator");
 const axios = require("axios");
 const faker = require("faker");
-const RegexLib = require("../Libs/regex");
-const Image = require("../Models/Image");
-const PriceModel = require("../Models/PriceModel");
+const RegexLib = require("../../Libs/regex");
+const Image = require("../../Models/Image");
+const PriceModel = require("../../Models/PriceModel");
 const { get } = require("mongoose");
-const { mapReduce } = require("../Models/User");
-const Property = require("../Models/Property");
+const { mapReduce } = require("../../Models/User");
+const Property = require("../../Models/Property");
+const State = require("../../Models/State");
+const City = require("../../Models/City");
+const Ward = require("../../Models/Ward");
+const Street = require("../../Models/Street");
 
 const getPriceModelCode = id => {
     switch (id) {
@@ -31,40 +35,58 @@ const getPriceModelCode = id => {
 };
 
 axios.get("http://localhost:8888/properties").then(async ({ data }) => {
+    //Geo
+
     const propertiesArr = [];
-    data.forEach(item => {
-        propertiesArr.push({
-            category: item.type.slug,
-            address: `${item.province.name}|${item.district.name}|${item.ward.name}|${item.address}|${item.street.name}`,
-            addressSlug: `${item.province.slug}|${item.district.slug}|${item.ward.slug}|${item.address}|${item.street.slug}`,
-            addressId: `${item.province.id}|${item.district.id}|${item.ward.id}|${item.address}|${item.street.id}`,
-            width: item.horizontal,
-            long: item.vertical,
-            behindWidth: item.be_horizontal,
-            landSize: item.land_size,
-            gfa: item.gfa,
-            price: item.price,
-            priceModel: getPriceModelCode(item.price_type_id),
-            priceOnSize: item.size_for_cal,
-            numOfBeds: item.num_of_bed,
-            numOfWcs: item.num_of_wc,
-            description: item.note,
-            images: item.images.map(image => image.imageId),
-            createdUser: item.user.phoneNumber,
-            updatedUser: item.user.phoneNumber,
-            createdAt: item.created_at,
-            updatedAt: item.updated_at,
-            firstContact: item.owner_phone_1,
-            secondContact: item.owner_phone_2,
-            history: item.history,
-            status: !item.signing_date ? "ok" : "out",
-        });
-    });
-    Property.insertMany(propertiesArr, (error, docs) => {
-        if (!error) {
-            console.log("Converted ", docs.length);
-        } else {
-            console.log({ error });
+    data.forEach(async item => {
+        let canInsert = true;
+        const state = await State.findOne({ slug: new RegExp(item.province.slug) });
+        if (!state) canInsert = false;
+        const city = await City.findOne({ state: state._id, slug: new RegExp(item.district.slug) });
+        if (!city) canInsert = false;
+        const ward = await Ward.findOne({ city: city._id, slug: new RegExp(item.ward.slug) });
+        if (!ward) canInsert = false;
+        const street = await Street.findOne({ city: city._id, slug: new RegExp(item.street.slug) });
+        if (!street) canInsert = false;
+
+        // console.log(ward);
+        if (canInsert) {
+            Property.create(
+                {
+                    categorySlug: item.type.slug,
+                    address: item.address || undefined,
+                    state: state._id,
+                    city: city._id,
+                    ward: ward._id,
+                    street: street._id,
+                    width: item.horizontal || undefined,
+                    long: item.vertical || undefined,
+                    behindWidth: item.be_horizontal || undefined,
+                    landSize: item.land_size || undefined,
+                    gfa: item.gfa || undefined,
+                    price: item.price,
+                    structure: item.structure,
+                    priceModelCode: getPriceModelCode(item.price_type_id),
+                    priceOnSize: item.size_for_cal || undefined,
+                    numOfBeds: item.num_of_bed || undefined,
+                    numOfWcs: item.num_of_wc || undefined,
+                    description: item.note,
+                    images: item.images.map(image => image.imageId),
+                    createdUserPhoneNumber: item.user.phone_number,
+                    updatedUserPhoneNumber: item.user.phone_number,
+                    createdAt: item.created_at,
+                    updatedAt: item.updated_at,
+                    firstContactPhoneNumber: item.owner_phone_1
+                        ? item.owner_phone_1
+                        : item.user.phone_number,
+                    secondContactPhoneNumber: item.owner_phone_2,
+                    history: item.history,
+                    status: !item.signing_date ? "ok" : "out",
+                },
+                (err, doc) => {
+                    console.log("Error on insert property: ", err);
+                }
+            );
         }
     });
 });

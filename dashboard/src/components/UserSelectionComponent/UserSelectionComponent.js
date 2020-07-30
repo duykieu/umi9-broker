@@ -83,6 +83,12 @@ const UserSelectionComponent = ({ listUsers, groups, change, inputValue, dispatc
     }
   }, [value]);
 
+  React.useEffect(() => {
+    if (!inputValue) {
+      setValue("");
+    }
+  }, [inputValue]);
+
   // const onSuccess = ({ username, userGroup, fullName, displayName, phoneNumber }) => {
   //   setValue(username);
   //   setText(

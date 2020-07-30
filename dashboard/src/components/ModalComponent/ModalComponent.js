@@ -4,10 +4,18 @@ import "./ModalComponent.scss";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import { CloseCircleOutlined, CloseOutlined } from "@ant-design/icons";
 
-const ModalComponent = ({ visible, children, header, showCloseIcon, close, buttons }) => {
+const ModalComponent = ({
+  visible,
+  children,
+  header,
+  showCloseIcon,
+  width,
+  close,
+  buttons,
+}) => {
   return (
     <div className={`modal__backdrop  ${visible && "visible"}`}>
-      <div className="modal__content">
+      <div className="modal__content" style={{ width: width ? width + "px" : "auto" }}>
         <div className="modal__header">
           {header && <div className="modal__title">{header}</div>}
           {showCloseIcon && (

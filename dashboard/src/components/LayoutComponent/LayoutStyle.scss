@@ -1,97 +1,31 @@
+@import "../../styles/main.scss";
+
 .main__layout {
   width: 100vw;
+  height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
-}
-
-.sidebar__content {
-  width: 25rem;
-  background-color: #0078d6;
-  height: 100vh;
-  overflow: hidden;
-
-  &--logo {
-    display: flex;
-    padding: 2rem 1rem;
-    justify-content: space-between;
-
-    button {
-      color: #fff;
-      font-size: 2rem;
-      background-color: transparent;
-      outline: none;
-      border: none;
-      cursor: pointer;
-    }
-  }
+  background-color: $gray-200;
 }
 
 .main__content {
   height: 100vh;
-  padding: 0 3rem;
   font-size: 1.4rem;
   color: rgb(96, 94, 92);
-  width: calc(100% - 25rem);
   overflow: hidden;
-
+  flex: 1;
   .content__wrapper {
     height: calc(100vh - 6.5rem);
     max-width: 100%;
     overflow: auto;
     white-space: nowrap;
-  }
-
-  .top__bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 6.5rem;
-    width: 100%;
-    button {
-      background-color: transparent;
-      color: rgb(96, 94, 92);
-      border: none;
-      margin-right: 1rem;
-      outline: none;
-      padding: 0.5rem;
-      font-size: 2rem;
-      cursor: pointer;
-      &:active,
-      &:visited {
-        outline: none;
-      }
-    }
-
-    a {
-      background-color: transparent;
-      color: rgb(96, 94, 92);
-      border: none;
-      margin-right: 1rem;
-      outline: none;
-      padding: 0.5rem;
-      font-size: 2rem;
-    }
-
-    .top__left {
-      display: flex;
-      min-width: 80%;
-      align-items: center;
-    }
-
-    .top__right {
-      display: flex;
-    }
-  }
-
-  .page__title {
-    font-size: 2.6rem;
+    padding: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .main__content {
-    padding: 0 1.5rem;
     width: 100%;
   }
 }

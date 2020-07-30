@@ -1,14 +1,7 @@
 import React from "react";
 import "./FieldComponent.scss";
 
-const FieldComponent = ({
-  label,
-  children,
-  size,
-  isRequired,
-  error,
-  touched,
-}) => {
+const FieldComponent = ({ label, children, size, isRequired, error, touched }) => {
   let cellClass;
 
   switch (size) {
@@ -30,7 +23,7 @@ const FieldComponent = ({
 
   return (
     <div className={cellClass}>
-      <div className="form__group">
+      <div className="form-group">
         <label>
           {label} {isRequired && <span style={{ color: "red" }}>*</span>}
         </label>

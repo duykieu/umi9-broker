@@ -20,21 +20,17 @@ const LoginPage = ({ AuthReducer, location, history, dispatch }) => {
     loading: false,
   });
 
-  const loadingOn = () => setState((state) => ({ ...state, loading: true }));
-  const loadingOff = () => setState((state) => ({ ...state, loading: false }));
+  const loadingOn = () => setState(state => ({ ...state, loading: true }));
+  const loadingOff = () => setState(state => ({ ...state, loading: false }));
 
-  const onSubmit = (values) => {
+  const onSubmit = values => {
     loadingOn();
 
     setTimeout(() => {
-      dispatch(authLoginAction(values)).then((success) => {
+      dispatch(authLoginAction(values)).then(success => {
         if (success) {
           let redirect = "/";
-          if (
-            location.state &&
-            location.state.from &&
-            location.state.from.pathname
-          ) {
+          if (location.state && location.state.from && location.state.from.pathname) {
             redirect = location.state.from.pathname;
           }
           history.push(redirect);
@@ -66,29 +62,39 @@ const LoginPage = ({ AuthReducer, location, history, dispatch }) => {
             size={1}
             label="Email/Tên đăng nhập"
           >
-            <TextBoxComponent
+            <input
+              className="form-control"
               disabled={state.loading}
-              change={({ value }) => formik.setFieldValue("username", value)}
+              onChange={({ target }) => formik.setFieldValue("username", target.value)}
             />
           </FieldComponent>
           <FieldComponent
+            className="form-control"
             size={1}
             error={formik.errors["password"]}
             touched={formik.touched["password"]}
             label="Mật khẩu"
           >
-            <TextBoxComponent
+            <input
+              className="form-control"
               disabled={state.loading}
               type="password"
-              change={({ value }) => formik.setFieldValue("password", value)}
+              onChange={({ target: { value } }) =>
+                formik.setFieldValue("password", value)
+              }
             />
           </FieldComponent>
         </div>
-        <ButtonComponent
+        <p className="helper">
+          Lưu ý bạn có thể dùng email hoặc số điện thoại để đăng nhập
+        </p>
+        <button
+          className="btn btn-block btn-success"
           disabled={state.loading}
           type="submit"
-          content={state.loading ? "Đang đăng nhập..." : "Tiếp tục"}
-        />
+        >
+          {state.loading ? "Đang đăng nhập..." : "Tiếp tục"}
+        </button>
       </form>
     </div>
   );

@@ -21,7 +21,7 @@ const Street = require("../../Models/Street");
 const Project = require("../../Models/Project");
 
 const fs = require("fs");
-const slugify = require("slugify");
+const { toSlug } = require("../../Helpers/utils");
 
 fs.readFile("./local.json", (err, data) => {
     data = JSON.parse(data);
@@ -30,7 +30,7 @@ fs.readFile("./local.json", (err, data) => {
         State.create(
             {
                 name: stateItem.name,
-                slug: slugify(stateItem.name).toLowerCase(),
+                slug: toSlug(stateItem.name).toLowerCase(),
                 code: stateItem.code,
             },
             (error, state) => {
@@ -39,7 +39,7 @@ fs.readFile("./local.json", (err, data) => {
                         City.create(
                             {
                                 name: cityItem.name,
-                                slug: slugify(cityItem.name).toLowerCase(),
+                                slug: toSlug(cityItem.name).toLowerCase(),
                                 state: state._id,
                             },
                             (error, city) => {
@@ -52,7 +52,7 @@ fs.readFile("./local.json", (err, data) => {
                                         streets.push({
                                             name: streetItem.name,
                                             prefix: streetItem.prefix,
-                                            slug: slugify(
+                                            slug: toSlug(
                                                 streetItem.prefix + " " + streetItem.name
                                             ).toLowerCase(),
                                             city: city._id,
@@ -63,7 +63,7 @@ fs.readFile("./local.json", (err, data) => {
                                         wards.push({
                                             name: wardItem.name,
                                             prefix: wardItem.prefix,
-                                            slug: slugify(
+                                            slug: toSlug(
                                                 wardItem.prefix + " " + wardItem.name
                                             ).toLowerCase(),
                                             city: city._id,
@@ -73,7 +73,7 @@ fs.readFile("./local.json", (err, data) => {
                                     cityItem.projects.forEach(wardItem => {
                                         projects.push({
                                             name: wardItem.name,
-                                            slug: slugify(wardItem.name).toLowerCase(),
+                                            slug: toSlug(wardItem.name).toLowerCase(),
                                             lat: wardItem.lat,
                                             lng: wardItem.lng,
                                             city: city._id,

@@ -1,4 +1,4 @@
-const { catchAsync } = require("../Helpers/utils");
+const { catchAsync, toSlug } = require("../Helpers/utils");
 const AppError = require("../Libs/AppError");
 const User = require("../Models/User");
 const pagination = require("../Helpers/pagination");
@@ -17,8 +17,8 @@ exports.get = catchAsync(async (req, res, next) => {
 
     if (search) {
         keywords = {
-            username: {
-                $regex: new RegExp(`${search}`),
+            keywords: {
+                $regex: new RegExp(`${toSlug(search).toLowerCase()}`),
             },
         };
     }
@@ -31,10 +31,12 @@ exports.get = catchAsync(async (req, res, next) => {
         const users = await User.find({ ...rest, ...typeQuery, ...keywords })
             .skip(skip)
             .limit(perPage);
+
+        const total = await User.countDocuments();
         return res.json({
             success: true,
             entries: {
-                meta: pagination(page, perPage, users.length),
+                meta: pagination(page, perPage, total),
                 users,
             },
         });
