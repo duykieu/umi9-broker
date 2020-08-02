@@ -62,6 +62,10 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: new Date("01/01/1980"),
     },
+    dateOfBirth: {
+        type: Date,
+        default: new Date("01/01/1980"),
+    },
     idIssuePlace: String,
     createdAt: {
         type: Date,

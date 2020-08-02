@@ -1,17 +1,19 @@
 <template lang="pug">
     .header__content
-        button.btn__menu.btn-transparent(@click="$emit('toggleSidebar')")
+        button.btn__menu.btn-transparent(
+            @click="$emit('toggleSidebar')"
+            :class="{sidebar__active: sidebarActive}"
+        )
             BIcon.menu__icon(icon="filter-left")
         .header__content--container
             .header__content--left
             .header__content--right
-                ul.functions__buttons
-                    li.function__buttons-item
-                        button.btn.btn-transparent
-                            BIcon(icon="plus")
                 .user__avatar
                     .user__avatar--icon(@click="toggleUserMenu") D
-                    ul.user__avatar--dropdown(v-if="showUserMenu" tabindex="0" v-out="onClickOutside")
+                    ul.user__avatar--dropdown(
+                        v-if="showUserMenu"
+                        tabindex="0"
+                    )
                         li
                             NuxtLink(to="/example") Quản lý tài khoản
                         li
@@ -21,6 +23,9 @@
 </template>
 <script>
 export default {
+    props: {
+        sidebarActive: Boolean,
+    },
     data() {
         return {
             showUserMenu: false,
@@ -127,10 +132,14 @@ export default {
     }
 
     .btn__menu {
-        position: absolute;
+        position: fixed;
         left: 1rem;
         top: 1rem;
         z-index: 10;
+
+        &.sidebar__active {
+            left: 27rem;
+        }
 
         svg {
             width: 2.5rem;
@@ -143,32 +152,6 @@ export default {
             width: 2.5rem;
             height: 2.5rem;
             fill: $gray-600;
-        }
-    }
-}
-
-@include media-breakpoint-down(md) {
-    .main__view {
-        width: 100%;
-        left: 0;
-    }
-    .header__content {
-        left: 0;
-        width: 100%;
-    }
-
-    .main__sidebar {
-        display: none;
-
-        &.active {
-            display: flex;
-        }
-    }
-}
-
-@include media-breakpoint-up(lg) {
-    .header__content {
-        .btn__menu {
         }
     }
 }

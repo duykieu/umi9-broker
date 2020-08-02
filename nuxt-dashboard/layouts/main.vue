@@ -6,7 +6,11 @@
             SidebarComponent
         .main__view(:class="{full__width: !sidebarActive}")
             .main__header
-                HeaderComponent(@toggleSidebar="sidebarActive = !sidebarActive" @showBackDrop="showBackDrop = true")
+                HeaderComponent(
+                    @toggleSidebar="sidebarActive = !sidebarActive"
+                    @showBackDrop="showBackDrop = true"
+                    :sidebarActive="sidebarActive"
+                )
             .main__content
                 .main__content--content
                     Nuxt
@@ -17,6 +21,7 @@ import SidebarComponent from "~/components/ui/SidebarComponent";
 import HeaderComponent from "~/components/ui/HeaderComponent";
 
 export default {
+    name: "MainLayout",
     components: {
         SidebarComponent,
         HeaderComponent,
@@ -26,6 +31,22 @@ export default {
             sidebarActive: true,
             showBackDrop: false,
         };
+    },
+    mounted() {
+        this.$store.watch(
+            state => state.error,
+            ({ code, message }) => {
+                if (message) {
+                    this.$notification("error", message);
+                    return this.$store.commit("error/unset");
+                }
+                if (code) {
+                    this.$notification("error", this.$t("error." + code));
+                    this.$store.commit("error/unset");
+                }
+            },
+            { deep: true },
+        );
     },
 };
 </script>
@@ -76,6 +97,9 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        @include media-breakpoint-down(sm) {
+            //left: 0;
+        }
 
         &.full__width {
             width: 100%;
@@ -86,29 +110,16 @@ export default {
             flex: 1;
             padding: 2rem;
             overflow-y: auto;
+            @include media-breakpoint-down(sm) {
+                width: 100%;
+            }
 
             &--content {
                 max-width: 1000px;
                 margin: auto;
+                padding-bottom: 5rem;
             }
         }
-    }
-}
-
-@include media-breakpoint-down(sm) {
-    .main__content {
-        padding: 1rem;
-
-        &--container {
-            max-width: 100%;
-        }
-    }
-    .main__view {
-        width: 100%;
-        left: 0;
-    }
-    .main__lay--overlay {
-        display: block;
     }
 }
 </style>

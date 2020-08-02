@@ -1,8 +1,12 @@
 <template lang="pug">
-    div
+    .grid__component
         BCard.no__padding
             BTable(
                 v-bind="$props"
+                :ref="gridId"
+                :per-page="perPage"
+                :current-page="currentPage"
+                :stacked="stacked || 'sm'"
             )
                 template(v-slot:head(checkbox))
                     input(type="checkbox" @change="selectAll = !selectAll")
@@ -13,24 +17,43 @@
                         :value="row.item._id"
                         @change="checkboxChange"
                     )
-        BPagination(
-            v-if="total && perPage && total > perPage"
-            :per-page="perPage"
-            :total-rows="total"
-            v-model="page"
-        )
+                template(v-slot:cell(commands)="{item}")
+                    slot(name="commands" v-bind:row="item")
+        .grid__component-footer
+            .grid__component-footer-left
+                select.form-control(v-model="perPage")
+                    option(value="15") 15 hàng
+                    option(value="30") 30 hàng
+                    option(value="50") 50 hàng
+                    option(value="100") 100 hàng
+                    option(value="200") 200 hàng
+                    option(value="500") 500 hàng
+            .grid__component-footer-right
+                BPagination(
+                    v-if="totalRows && perPage && totalRows > perPage"
+                    :per-page="perPage"
+                    :total-rows="totalRows"
+                    v-model="currentPage"
+                    @change="$refs[gridId].refresh()"
+                )
 
 </template>
 
 <script>
+import uniqid from "uniqid";
+
+const gridId = uniqid();
+
 export default {
     name: "GridComponent",
-    props: ["items", "fields", "total", "perPage", "page"],
+    props: ["totalRows", "fields", "items", "stacked"],
     data() {
         return {
             selectAll: false,
             selectedRows: [],
-            currentPage: this.page,
+            perPage: 15,
+            currentPage: 1,
+            gridId,
         };
     },
     watch: {
@@ -55,8 +78,48 @@ export default {
                 this.selectedRows = currentSelectedRows.filter(el => el !== value);
             }
         },
+        refresh() {
+            this.$refs[this.gridId].refresh();
+        },
     },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.grid__component {
+    table {
+        margin-bottom: 0;
+
+        th,
+        td {
+            padding: 1rem 1.5rem;
+        }
+    }
+
+    &-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .pagination {
+        margin-top: 1rem;
+
+        .page-item {
+            margin: 0 0.3rem;
+
+            button,
+            a {
+                color: $gray-700;
+            }
+
+            &.active {
+                button,
+                a {
+                    color: $gray-100;
+                }
+            }
+        }
+    }
+}
+</style>

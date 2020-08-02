@@ -9,7 +9,7 @@
                 NuxtLink.menu__item(v-if="item.path" :to="item.path")
                     BIcon.menu__item-icon(v-if="item.icon" :icon="item.icon")
                     span {{ item.label }}
-                .menu__item(v-if="!item.path")
+                .menu__item(v-if="!item.path" :class="{active: isActive(item.active)}")
                     BIcon.menu__item-icon(v-if="item.icon" :icon="item.icon")
                     span {{ item.label }}
 
@@ -17,11 +17,11 @@
                 ul.submenu__level-1(v-if="item.children")
                     li(v-for="child in item.children")
                         NuxtLink.menu__item(v-if="child.path" :to="child.path") {{ child.label }}
-                        .menu__item(v-if="!child.path") {{ child.label }}
+                        .menu__item(v-if="!child.path"  :class="{active: isActive(item.active)}") {{ child.label }}
 
                             //Level 3
                             ul.submenu__level-2(v-if="child.children")
-                                li(v-for="i in child.children")
+                                li(v-for="i in child.children"  :class="{active: isActive(item.active)}")
                                     NuxtLink.menu__item(v-if="i.path" :to="i.path") {{ i.label }}
 </template>
 <script>
@@ -46,7 +46,7 @@ export default {
                         },
                         {
                             label: "Thêm sản phẩm",
-                            path: "/property/add",
+                            path: "/property/create",
                             permission: "PropertyStore",
                         },
                         {
@@ -72,7 +72,7 @@ export default {
                         },
                         {
                             label: "Thêm sản phẩm",
-                            path: "/ads/add",
+                            path: "/ads/create",
                             permission: "AdsStore",
                         },
                     ],
@@ -80,6 +80,7 @@ export default {
                 {
                     label: "Người dùng",
                     icon: "person",
+                    active: ["user"],
                     children: [
                         {
                             label: "Tất cả người dùng",
@@ -88,13 +89,14 @@ export default {
                         },
                         {
                             label: "Thêm người dùng",
-                            path: "/user/add",
+                            path: "/user/create",
                             permission: "UserStore",
                         },
                         {
                             label: "Nhóm người dùng",
                             path: "/user-group",
                             permission: "UserGroupIndex",
+                            active: ["user-group"],
                         },
                     ],
                 },
@@ -106,6 +108,26 @@ export default {
                 },
             ],
         };
+    },
+    mounted() {
+        console.log(this.route);
+    },
+    computed: {
+        route() {
+            return this.$route;
+        },
+    },
+    methods: {
+        isActive(arr) {
+            console.log({ arr });
+            if (!arr) return;
+
+            for (const route of arr) {
+                if (this.$route.fullPath.includes(route)) {
+                    return true;
+                }
+            }
+        },
     },
 };
 </script>

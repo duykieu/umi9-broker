@@ -3,10 +3,16 @@ const AppError = require("../Libs/AppError");
 const User = require("../Models/User");
 const pagination = require("../Helpers/pagination");
 
+/**
+ * Get all user
+ * @type {function(...[*]=)}
+ */
 exports.get = catchAsync(async (req, res, next) => {
-    let { page, perPage, type, search, ...rest } = req.query;
+    let { page, limit, type, search, ...rest } = req.query;
+
     let typeQuery = {};
     let keywords = {};
+
     if (type === "internal") {
         typeQuery = {
             userGroup: {
@@ -23,34 +29,40 @@ exports.get = catchAsync(async (req, res, next) => {
         };
     }
 
-    if (page && perPage) {
+    if (page && limit) {
         page = Math.abs(page) || 1; //2
-        perPage = Math.abs(perPage) || 15; //10
-        const skip = Math.abs(page) * Math.abs(perPage) - 15 || 0; //10
+        limit = Math.abs(limit) || 15; //10
+        const skip = Math.abs(page) * Math.abs(limit) - 15 || 0; //10
 
         const users = await User.find({ ...rest, ...typeQuery, ...keywords })
             .skip(skip)
-            .limit(perPage);
+            .limit(limit);
 
-        const total = await User.countDocuments();
+        const total = await User.countDocuments({ ...rest, ...typeQuery, ...keywords });
         return res.json({
             success: true,
             entries: {
-                meta: pagination(page, perPage, total),
+                totalRows: total,
                 users,
             },
         });
     } else {
         const users = await User.find({ ...typeQuery, ...keywords });
+        const total = await User.countDocuments();
         return res.json({
             success: true,
             entries: {
                 users,
+                totalRows: total,
             },
         });
     }
 });
 
+/**
+ * Auto complete search
+ * @type {function(...[*]=)}
+ */
 exports.autoComplete = catchAsync(async (req, res, next) => {
     let { page, perPage, type, ...rest } = req.query;
     let typeQuery = {};
@@ -86,8 +98,12 @@ exports.autoComplete = catchAsync(async (req, res, next) => {
     }
 });
 
+/**
+ * Create new user
+ * @type {function(...[*]=)}
+ */
 exports.store = catchAsync(async (req, res, next) => {
-    const data = req.body;
+    const {data} = req.body;
     Object.keys(data).forEach(key => {
         if (!data[key]) {
             data[key] = undefined;
@@ -103,6 +119,10 @@ exports.store = catchAsync(async (req, res, next) => {
     });
 });
 
+/**
+ * Get single user
+ * @type {function(...[*]=)}
+ */
 exports.show = catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const user = await User.findById(id);
@@ -115,9 +135,13 @@ exports.show = catchAsync(async (req, res, next) => {
     });
 });
 
+/**
+ * Update user
+ * @type {function(...[*]=)}
+ */
 exports.update = catchAsync(async (req, res, next) => {
     const { id } = req.params;
-    const data = req.body;
+    const {data} = req.body;
     const user = await User.findByIdAndUpdate(id, data, { new: true });
 
     return res.json({
@@ -128,6 +152,10 @@ exports.update = catchAsync(async (req, res, next) => {
     });
 });
 
+/**
+ * Delete User
+ * @type {function(...[*]=)}
+ */
 exports.destroy = catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const user = await User.findByIdAndDelete(id);

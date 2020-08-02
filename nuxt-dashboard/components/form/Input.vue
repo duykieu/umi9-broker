@@ -1,34 +1,21 @@
 <template lang="pug">
     .form-group
         label {{ label }}
-        input(
-            :placeholder="placeholder"
-            :type="type ? type : 'text'"
-            :class="`form-control ${internalSize}`"
-            v-model="inputVal"
-            @keyup="validator && validator.$touch()"
+        BInput.form-control(
             @keyup.enter="$emit('onEnter')"
+            v-bind="$props"
+            v-model="validator.$model"
+            :type="type || 'text'"
         )
-        .form__error(v-for="error in errorMessages") {{ error }}
+        .form__error(
+            v-if="validator.$anyDirty && validator.$invalid"
+            v-for="error in errorMessages"
+        ) {{ error }}
 </template>
 
 <script>
 export default {
-    props: [
-        "label",
-        "size",
-        "type",
-        "placeholder",
-        "value",
-        "rules",
-        "validator",
-        "name",
-    ],
-    methods: {
-        onKeyup() {
-            this.validator && this.validator.$touch();
-        },
-    },
+    props: ["label", "size", "validator", "name", "type"],
 
     computed: {
         internalSize() {

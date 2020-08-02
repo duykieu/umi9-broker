@@ -9,6 +9,7 @@ const UserGroupSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    permissions: [],
 });
 
 module.exports = mongoose.model("UserGroup", UserGroupSchema);

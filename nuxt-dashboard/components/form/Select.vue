@@ -5,10 +5,13 @@
             :placeholder="placeholder"
             :options="options"
             :class="`form-control ${internalSize}`"
-            v-model="inputVal"
-            @change="validator && validator.$touch()"
+            v-bind="$props"
+            v-model="validator.$model"
         )
-        .form__error(v-for="rule in errors") {{ label && $fm(rule, label.split('.').pop()) }}
+        .form__error(
+            v-if="validator.$anyDirty && validator.$invalid"
+            v-for="error in errorMessages"
+        ) {{ error }}
 </template>
 
 <script>
@@ -42,6 +45,14 @@ export default {
             const rules = Object.keys(this.validator.$params);
             const { validator } = this;
             return rules.filter(rule => !validator[rule]);
+        },
+        errorMessages() {
+            if (!this.label) return [];
+            return this.errors.map(rule => {
+                return this.$t("validation." + rule, {
+                    field: this.$t("fields." + this.name),
+                });
+            });
         },
     },
 };

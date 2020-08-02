@@ -6,4 +6,12 @@ table {
             padding: 1.5rem 1rem;
         }
     }
+
+    th.commands {
+        & > div {
+            display: none;
+        }
+
+    }
 }
+

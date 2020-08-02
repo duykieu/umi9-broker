@@ -1,41 +1,57 @@
 <template lang="pug">
     .user__page
         PageTitleComponent Quản lý người dùng
-        FilterBarComponent
-        GridComponent.padding(
-            :items="users.rowData"
-            :fields="fields"
-            :perPage="users.perPage"
-            :page="users.page"
-            :total="users.total"
+        FilterBarComponent(
+            create-link="/user/create"
+            v-model="filterData.search"
+            @change="$refs.userGrid.refresh()"
         )
+            template(v-slot:filter__dropdown)
+                .filter__dropdown
+                    input.form-control
+                    input.form-control
+                    input.form-control
+        GridComponent.padding(
+            :items="fetch"
+            :fields="fields"
+            :total-rows="totalRows"
+            ref="userGrid"
+        )
+            template(v-slot:commands="{row}")
+                CommandButtonsComponent(:buttons="commandButtons(row)")
 
 </template>
 <script>
-import { AgGridVue } from "ag-grid-vue";
 import PageTitleComponent from "~/components/ui/PageTitleComponent";
 import FilterBarComponent from "~/components/ui/FilterBarComponent";
 import GridComponent from "~/components/ui/GridComponent";
+import CommandButtonsComponent from "@/components/ui/CommandButtonsComponent";
 
 export default {
-    components: { GridComponent, FilterBarComponent, PageTitleComponent, AgGridVue },
+    components: {
+        CommandButtonsComponent,
+        GridComponent,
+        FilterBarComponent,
+        PageTitleComponent,
+    },
     layout: "main",
     data() {
         return {
-            users: {
-                perPage: 15,
-                page: 1,
-                total: 0,
-                rowData: [],
-            },
+            totalRows: 0,
             columnDefs: null,
+            filterData: {
+                search: null,
+            },
             fields: [
-                "checkbox",
                 { label: "Họ tên", key: "fullName" },
                 "email",
                 { label: "Điện thoại", key: "phoneNumber" },
                 { label: "Địa chỉ", key: "address" },
                 { label: "Vai trò", key: "userGroup" },
+                {
+                    key: "commands",
+                    class: "commands",
+                },
             ],
         };
     },
@@ -45,32 +61,57 @@ export default {
             this.$nuxt.$loading.start();
         });
     },
-    mounted() {
-        this.fetch();
-    },
+
     methods: {
-        fetch() {
-            const params = {
-                perPage: this.users.perPage,
-                page: this.users.page,
-            };
-            return this.$api.User.Get(params)
-                .then(({ data: { success, entries, meta } }) => {
-                    if (success) {
-                        // return entries.users;
-                        this.users = {
-                            rowData: entries.users,
-                            total: entries.meta.total,
-                            perPage: entries.meta.perPage,
-                            page: entries.meta.currentPage,
-                        };
-                    }
+        fetch(context) {
+            console.log({ context });
+            const { perPage, currentPage } = context;
+            return this.$api.User.Get({
+                limit: perPage,
+                page: currentPage,
+                ...this.filterData,
+            })
+                .then(({ data: { success, entries } }) => {
+                    this.totalRows = entries.totalRows;
+                    return entries.users;
                 })
-                .catch(({ message, ...rest }) => {
-                    this.$notification("error", "Lỗi kết nối với máy chủ");
-                    // this.$log(rest, message);
+                .catch(error => {
+                    this.$store.commit("error/set", error);
+                    return [];
                 });
+        },
+        commandButtons({ _id }) {
+            return [
+                {
+                    type: "link",
+                    url: "/user/" + _id,
+                    icon: "pencil",
+                },
+                {
+                    confirm: true,
+                    confirmMessage: "Bạn chắc chắn muốn xóa người dùng này chứ ?",
+                    icon: "archive",
+                    onConfirm: () => {
+                        this.$api.User.Delete(_id)
+                            .then(() => {
+                                this.$notification("info", "Xóa người dùng thành công");
+                                this.$refs.userGrid.refresh();
+                            })
+                            .catch(error => this.$store.commit("error/set", error));
+                    },
+                },
+            ];
         },
     },
 };
 </script>
+
+<style lang="scss">
+.filter__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 1rem;
+    background-color: $white;
+}
+</style>

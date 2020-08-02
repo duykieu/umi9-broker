@@ -13,6 +13,7 @@ const CityController = require("./Controllers/CityController");
 const StreetController = require("./Controllers/StreetController");
 const WardController = require("./Controllers/WardController");
 const ProjectController = require("./Controllers/ProjectController");
+const PermissionController = require("./Controllers/PermissionController");
 
 router.route("/login").post(AuthController.login);
 
@@ -68,9 +69,9 @@ router
     .delete(PriceModelController.destroy);
 
 //User Group
-router.route("/userGroup").get(UserGroupController.get).post(UserGroupController.store);
+router.route("/user-groups").get(UserGroupController.get).post(UserGroupController.store);
 router
-    .route("/userGroup/:id")
+    .route("/user-groups/:id")
     .get(UserGroupController.show)
     .patch(UserGroupController.update)
     .delete(UserGroupController.destroy);
@@ -82,6 +83,8 @@ router.route("/image/upload").post(ImageController.upload);
 //     .get(ImageController.show)
 //     .patch(ImageController.update)
 //     .delete(ImageController.destroy);
+
+router.route("/permissions").get(PermissionController.get);
 
 //Return
 module.exports = router;
