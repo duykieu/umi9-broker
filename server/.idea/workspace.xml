@@ -20,39 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ee4f41d-4bf3-4832-ae86-502ec01676e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../nuxt-dashboard/locales/vi/acl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nuxt-dashboard/pages/user-group/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nuxt-dashboard/pages/user/_id.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nuxt-dashboard/pages/user/mixins.pug" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Controllers/PermissionController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/assets/scss/base/_base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/assets/scss/base/_base.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/assets/scss/base/_form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/assets/scss/base/_form.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/assets/scss/components/_table.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/assets/scss/components/_table.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/components/form/Input.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/components/form/Input.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/components/form/Select.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/components/form/Select.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/components/ui/FilterBarComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/components/ui/FilterBarComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/components/ui/GridComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/components/ui/GridComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/components/ui/HeaderComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/components/ui/HeaderComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nuxt-dashboard/constants/menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aclMigrate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/userGroupMigrate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/components/ui/SidebarComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/components/ui/SidebarComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/layouts/main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/layouts/main.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/locales/vi/fields.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/locales/vi/fields.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/locales/vi/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/locales/vi/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/locales/vi/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/locales/vi/validation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/pages/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/pages/user/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/plugins/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/plugins/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/plugins/global.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/plugins/global.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nuxt-dashboard/store/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nuxt-dashboard/store/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/ErrorController.js" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/ErrorController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/UserController.js" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/UserGroupController.js" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserGroupController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Libs/AppError.js" beforeDir="false" afterPath="$PROJECT_DIR$/Libs/AppError.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/Models/User.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/UserGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/Models/UserGroup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routers.js" beforeDir="false" afterPath="$PROJECT_DIR$/routers.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,10 +54,22 @@
       <recent name="$PROJECT_DIR$/Controllers" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Node.js.userGroupMigrate.js">
     <configuration name="umi9" type="NodeJSConfigurationType" path-to-node="/usr/local/bin/node" node-parameters="/usr/local/bin/nodemon" path-to-js-file="index.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
+    <configuration name="userGroupMigrate.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/userGroupMigrate.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Node.js.umi9" />
+      <item itemvalue="Node.js.userGroupMigrate.js" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.userGroupMigrate.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -92,7 +79,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1596337435491</updated>
-      <workItem from="1596337436735" duration="9870000" />
+      <workItem from="1596337436735" duration="12041000" />
     </task>
     <servers />
   </component>
@@ -123,73 +110,73 @@
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
     <state x="747" y="358" key="FileChooserDialogImpl/0.23.1920.1123@0.23.1920.1123" timestamp="1596337857523" />
-    <state width="512" height="1003" key="GridCell.Tab.0.bottom" timestamp="1596341243512">
+    <state width="512" height="771" key="GridCell.Tab.0.bottom" timestamp="1596463277817">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="512" height="1003" key="GridCell.Tab.0.bottom/0.23.1920.1123@0.23.1920.1123" timestamp="1596341243512" />
-    <state width="512" height="1003" key="GridCell.Tab.0.center" timestamp="1596341243512">
+    <state width="512" height="771" key="GridCell.Tab.0.bottom/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277817" />
+    <state width="512" height="771" key="GridCell.Tab.0.center" timestamp="1596463277817">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="512" height="1003" key="GridCell.Tab.0.center/0.23.1920.1123@0.23.1920.1123" timestamp="1596341243512" />
-    <state width="512" height="1003" key="GridCell.Tab.0.left" timestamp="1596341243511">
+    <state width="512" height="771" key="GridCell.Tab.0.center/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277817" />
+    <state width="512" height="771" key="GridCell.Tab.0.left" timestamp="1596463277815">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="512" height="1003" key="GridCell.Tab.0.left/0.23.1920.1123@0.23.1920.1123" timestamp="1596341243511" />
-    <state width="512" height="1003" key="GridCell.Tab.0.right" timestamp="1596341243512">
+    <state width="512" height="771" key="GridCell.Tab.0.left/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277815" />
+    <state width="512" height="771" key="GridCell.Tab.0.right" timestamp="1596463277817">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="512" height="1003" key="GridCell.Tab.0.right/0.23.1920.1123@0.23.1920.1123" timestamp="1596341243512" />
-    <state width="781" height="1003" key="GridCell.Tab.1.bottom" timestamp="1596338325876">
+    <state width="512" height="771" key="GridCell.Tab.0.right/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277817" />
+    <state width="512" height="771" key="GridCell.Tab.1.bottom" timestamp="1596463277461">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.1.bottom/0.23.1920.1123@0.23.1920.1123" timestamp="1596338325876" />
-    <state width="781" height="1003" key="GridCell.Tab.1.center" timestamp="1596338325876">
+    <state width="512" height="771" key="GridCell.Tab.1.bottom/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277461" />
+    <state width="512" height="771" key="GridCell.Tab.1.center" timestamp="1596463277461">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.1.center/0.23.1920.1123@0.23.1920.1123" timestamp="1596338325876" />
-    <state width="781" height="1003" key="GridCell.Tab.1.left" timestamp="1596338325875">
+    <state width="512" height="771" key="GridCell.Tab.1.center/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277461" />
+    <state width="512" height="771" key="GridCell.Tab.1.left" timestamp="1596463277460">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.1.left/0.23.1920.1123@0.23.1920.1123" timestamp="1596338325875" />
-    <state width="781" height="1003" key="GridCell.Tab.1.right" timestamp="1596338325876">
+    <state width="512" height="771" key="GridCell.Tab.1.left/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277460" />
+    <state width="512" height="771" key="GridCell.Tab.1.right" timestamp="1596463277461">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.1.right/0.23.1920.1123@0.23.1920.1123" timestamp="1596338325876" />
-    <state width="781" height="1003" key="GridCell.Tab.2.bottom" timestamp="1596338323957">
+    <state width="512" height="771" key="GridCell.Tab.1.right/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277461" />
+    <state width="512" height="771" key="GridCell.Tab.2.bottom" timestamp="1596463277462">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.2.bottom/0.23.1920.1123@0.23.1920.1123" timestamp="1596338323957" />
-    <state width="781" height="1003" key="GridCell.Tab.2.center" timestamp="1596338323956">
+    <state width="512" height="771" key="GridCell.Tab.2.bottom/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277462" />
+    <state width="512" height="771" key="GridCell.Tab.2.center" timestamp="1596463277461">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.2.center/0.23.1920.1123@0.23.1920.1123" timestamp="1596338323956" />
-    <state width="781" height="1003" key="GridCell.Tab.2.left" timestamp="1596338323956">
+    <state width="512" height="771" key="GridCell.Tab.2.center/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277461" />
+    <state width="512" height="771" key="GridCell.Tab.2.left" timestamp="1596463277461">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.2.left/0.23.1920.1123@0.23.1920.1123" timestamp="1596338323956" />
-    <state width="781" height="1003" key="GridCell.Tab.2.right" timestamp="1596338323956">
+    <state width="512" height="771" key="GridCell.Tab.2.left/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277461" />
+    <state width="512" height="771" key="GridCell.Tab.2.right" timestamp="1596463277461">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.2.right/0.23.1920.1123@0.23.1920.1123" timestamp="1596338323956" />
-    <state width="781" height="1003" key="GridCell.Tab.3.bottom" timestamp="1596338323422">
+    <state width="512" height="771" key="GridCell.Tab.2.right/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277461" />
+    <state width="512" height="771" key="GridCell.Tab.3.bottom" timestamp="1596463277462">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.3.bottom/0.23.1920.1123@0.23.1920.1123" timestamp="1596338323422" />
-    <state width="781" height="1003" key="GridCell.Tab.3.center" timestamp="1596338323421">
+    <state width="512" height="771" key="GridCell.Tab.3.bottom/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277462" />
+    <state width="512" height="771" key="GridCell.Tab.3.center" timestamp="1596463277462">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.3.center/0.23.1920.1123@0.23.1920.1123" timestamp="1596338323421" />
-    <state width="781" height="1003" key="GridCell.Tab.3.left" timestamp="1596338323421">
+    <state width="512" height="771" key="GridCell.Tab.3.center/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277462" />
+    <state width="512" height="771" key="GridCell.Tab.3.left" timestamp="1596463277462">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.3.left/0.23.1920.1123@0.23.1920.1123" timestamp="1596338323421" />
-    <state width="781" height="1003" key="GridCell.Tab.3.right" timestamp="1596338323422">
+    <state width="512" height="771" key="GridCell.Tab.3.left/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277462" />
+    <state width="512" height="771" key="GridCell.Tab.3.right" timestamp="1596463277462">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state width="781" height="1003" key="GridCell.Tab.3.right/0.23.1920.1123@0.23.1920.1123" timestamp="1596338323422" />
-    <state x="625" y="274" width="670" height="676" key="search.everywhere.popup" timestamp="1596366347018">
+    <state width="512" height="771" key="GridCell.Tab.3.right/0.23.1920.1123@0.23.1920.1123" timestamp="1596463277462" />
+    <state x="625" y="274" width="670" height="676" key="search.everywhere.popup" timestamp="1596462940482">
       <screen x="0" y="23" width="1920" height="1123" />
     </state>
-    <state x="625" y="274" width="670" height="676" key="search.everywhere.popup/0.23.1920.1123@0.23.1920.1123" timestamp="1596366347018" />
+    <state x="625" y="274" width="670" height="676" key="search.everywhere.popup/0.23.1920.1123@0.23.1920.1123" timestamp="1596462940482" />
   </component>
 </project>

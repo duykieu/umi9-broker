@@ -1,6 +1,7 @@
 const { catchAsync, toSlug } = require("../Helpers/utils");
 const AppError = require("../Libs/AppError");
 const User = require("../Models/User");
+const UserGroup = require("../Models/UserGroup");
 const pagination = require("../Helpers/pagination");
 
 /**
@@ -127,6 +128,15 @@ exports.show = catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const user = await User.findById(id);
 
+    if(!user) return next(new AppError("Not found", 404))
+
+    //Checking user group
+    const userGroup = await UserGroup.findOne({code: user.userGroup});
+
+    if(userGroup && userGroup.permissions.length) {
+        user.permissions = userGroup.permissions;
+    }
+
     return res.json({
         success: true,
         entries: {
@@ -144,6 +154,8 @@ exports.update = catchAsync(async (req, res, next) => {
     const {data} = req.body;
     const user = await User.findByIdAndUpdate(id, data, { new: true });
 
+    if(!user) return next(new AppError("Not found", 404))
+
     return res.json({
         success: true,
         entries: {
@@ -159,6 +171,8 @@ exports.update = catchAsync(async (req, res, next) => {
 exports.destroy = catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const user = await User.findByIdAndDelete(id);
+
+    if(!user) return next(new AppError("Not found", 404))
 
     return res.json({
         success: true,

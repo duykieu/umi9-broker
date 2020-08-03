@@ -55,7 +55,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         default: "member",
     },
-    permission: [String],
+    permissions: [String],
     address: String,
     idNumber: String,
     idIssueDate: {
