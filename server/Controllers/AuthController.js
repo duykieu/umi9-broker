@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const User = require("../Models/User");
+const UserGroup = require("../Models/UserGroup");
 const { catchAsync } = require("../Helpers/utils");
 const AppError = require("../Libs/AppError");
 // const sendEmail = require("./../utils/email");
@@ -93,6 +94,8 @@ exports.protect = catchAsync(async (req, res, next) => {
         token = req.headers.authorization.split(" ")[1];
     }
 
+    console.log({ token });
+
     if (!token) {
         return next(new AppError("Bạn chưa đăng nhập, vui lòng đăng nhập để sử dụng.", 401));
     }
@@ -113,15 +116,21 @@ exports.protect = catchAsync(async (req, res, next) => {
         );
     }
 
+    const userGroup = await UserGroup.findOne({ code: currentUser.userGroup });
+
+    if (userGroup && userGroup.permissions.length) {
+        currentUser.permissions = userGroup.permissions;
+    }
+
     // GRANT ACCESS TO PROTECTED ROUTE
     req.user = currentUser;
     next();
 });
 
-exports.restrictTo = (...roles) => {
+exports.restrictTo = screen => {
     return (req, res, next) => {
         // roles ['admin', 'lead-guide']. role='user'
-        if (!roles.includes(req.user.role)) {
+        if (!req.user.permissions.includes(screen)) {
             return next(new AppError("Bạn không có quyền truy cập tài nguyên này", 403));
         }
 

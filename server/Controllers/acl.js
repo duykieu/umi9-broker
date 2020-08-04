@@ -41,4 +41,11 @@ module.exports = {
         SelfShow: ["super_adm", "ceo", "branch_director", "leader", "editor", "staff"],
         SelfUpdate: ["super_adm", "ceo", "branch_director", "leader", "editor", "staff"],
     },
+    UserGroup: {
+        Index: ["super_adm", "ceo", "branch_director", "leader", "editor"],
+        Store: ["super_adm", "ceo", "branch_director", "leader", "editor"],
+        Update: ["super_adm", "ceo", "branch_director", "leader", "editor"],
+        Destroy: ["super_adm", "ceo", "branch_director", "leader", "editor"],
+        Show: ["super_adm", "ceo", "branch_director", "leader", "editor"],
+    },
 };
